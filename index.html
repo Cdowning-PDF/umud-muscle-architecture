@@ -90,6 +90,10 @@
   .abstract p{margin:0 0 .85rem; font-size:.96rem; line-height:1.57}
   .abstract p:last-child{margin-bottom:0}
   .keywords{font-size:.84rem; color:var(--ink-faint); margin:1rem 0 0; font-style:italic}
+  .golf{
+    margin:.85rem 0 0; padding:.8rem 1rem; background:var(--white);
+    border:1px solid var(--rule-soft); font-size:.89rem; line-height:1.55; color:var(--ink-soft);
+  }
 
   h2.sec{
     font-size:1.18rem; font-weight:600; margin:3rem 0 .85rem;
@@ -172,7 +176,7 @@
 <div class="sheet">
 
 <div class="brow">
-  <span>Technical report · Not peer reviewed</span>
+  <span>Preprint · Submission to <i>Journal of Biomechanics</i> in preparation</span>
   <span>November 2026</span>
 </div>
 
@@ -184,10 +188,11 @@
 <p class="dateline">November 2026 · v1 · competition closed 2026-11-14</p>
 
 <div class="headline">
-  <div><div class="v">38 / 690</div><div class="k">Private leaderboard</div></div>
-  <div><div class="v">+50</div><div class="k">Places gained vs. public</div></div>
-  <div><div class="v">0.196</div><div class="k">Benchmark score vs. 0.259 for one expert</div></div>
+  <div><div class="v">Top 5.5%</div><div class="k">38th of 690 teams</div></div>
+  <div><div class="v">0.196</div><div class="k">This pipeline's error vs.<br>a 7-expert consensus</div></div>
+  <div><div class="v">0.259</div><div class="k">One human expert,<br>same measure</div></div>
 </div>
+<p class="golf"><b>Lower is better.</b> These are error scores, like golf — the number is how far a measurement sits from the consensus of seven expert raters. At <b>0.196</b> against an expert's <b>0.259</b>, the pipeline lands closer to that consensus than an individual expert does.</p>
 
 <section class="explain">
   <h2 class="xh">What problem is this solving?</h2>
@@ -208,7 +213,7 @@
 
   <div class="sofwhat">
     <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept — in under a second, with no human in the loop.</p>
-    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and placed 38th of 690 teams. The rest of this report is how.</p>
+    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and placed in the <b>top 5.5%</b> of 690 competing teams. The rest of this report is how.</p>
   </div>
 </section>
 
@@ -217,7 +222,7 @@
   <p>Measuring muscle architecture — pennation angle (PA), fascicle length (FL) and muscle thickness (MT) — from B-mode ultrasound is a routine but labour-intensive task in sports science and rehabilitation, and manual analysis is unreliable in the hands of novice raters. We describe a fully automated pipeline developed for the UMUD Challenge, in which 309 test images drawn from six different scanner screenshot layouts must be measured without any per-image human input.</p>
   <p>Three components carry the result. First, a <b>device-normalisation stage</b> identifies the scanner family, reads the on-screen depth ruler for pixel-to-millimetre scale, crops the B-mode sector, and — critically — corrects for <b>lateral anisotropy</b>. Two of the six layouts are horizontally resampled screenshots in which a physical aperture is displayed over a different width, giving pixels that are not square: the Juniper 12L3 presents a 51.3&nbsp;mm aperture across ≈57.5&nbsp;mm of vertical-ruler units (<i>R</i>&nbsp;≈&nbsp;1.12), the Lumify L12-4 a 34&nbsp;mm aperture across ≈28.6&nbsp;mm (<i>R</i>&nbsp;≈&nbsp;0.84). Any angle measured in raw pixel coordinates on these devices is wrong. Second, two U-Net ensembles (ResNet-34 and EfficientNet-B3 encoders, 512&nbsp;px, flip TTA) segment aponeuroses and fascicles. Third, a <b>geometry stage</b> derives the three quantities with explicit outlier rejection.</p>
   <p>Our principal methodological contribution is in FL. The natural estimator — extending each detected fascicle fragment along its own direction to both aponeurosis lines — is exact only when the aponeuroses are parallel. When they converge by half-angle <i>h</i>, that chord exceeds MT/sin&nbsp;γ by a factor 1/(1&nbsp;−&nbsp;cot²γ·tan²<i>h</i>), and we show empirically that human raters do not follow this blow-up. Substituting an estimator measured against the <b>bisector</b> of the two aponeuroses reduces the convergence-dependent bias from +8%/+14% to +6%/+5% across two anatomically different datasets, so that a single scalar calibration transfers between muscles.</p>
-  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b> against <b>0.259</b> for an individual expert measured against the same seven-rater mean; on 31 images screened to exclude training look-alikes it scores 0.203. The entry placed <b>38th of 690 teams</b>, rising 50 places from the provisional to the final leaderboard. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the leaderboard, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
+  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b> against <b>0.259</b> for an individual expert measured against the same seven-rater mean; on 31 images screened to exclude training look-alikes it scores 0.203. The entry placed <b>38th of 690 teams</b>, in the top 5.5% of the field. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the leaderboard, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
   <p class="keywords">Keywords: musculoskeletal ultrasound · semantic segmentation · image calibration · anisotropic resampling · fascicle length · validation transfer</p>
 </div>
 
@@ -396,7 +401,7 @@
       <tr><td>Pipeline geometry alone, final split</td><td>≈ 44</td><td>0.26294</td><td class="dim">top 6.4%</td></tr>
     </tbody>
   </table>
-  <figcaption><b>The 50-place gain is the informative part.</b> Provisional and final scores are computed on a random split of the same test set, so a systematic rise indicates that competitors above us on the provisional board had tuned against it. The selected entry combined several weighted components. The submission carrying the geometry of §4.3 at full weight, with no other adjustment, scored 0.26294 on the same split — a difference of 0.00167, or roughly six places. <b>The result is therefore not sensitive to the combination:</b> the geometry carries it.</figcaption>
+  <figcaption><b>A top-5.5% placement among 690 entrants.</b> Provisional and final scores are computed on a random split of the same test set; the standing improved by 50 places between them, which indicates that competitors ranked above us provisionally had tuned against that split. The selected entry combined several weighted components. The submission carrying the geometry of §4.3 at full weight, with no other adjustment, scored 0.26294 on the same split — a difference of 0.00167, or roughly six places. <b>The result is therefore not sensitive to the combination:</b> the geometry carries it.</figcaption>
 </figure>
 
 <h2 class="sec"><span class="num">6</span>The validation transfer problem</h2>
@@ -446,7 +451,7 @@
 </ol>
 
 <div class="disclaim">
-  <b>Status and sources.</b> This is a technical report on work submitted to the UMUD Challenge; it has not been peer reviewed. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
+  <b>Status and sources.</b> This is a preprint and has <b>not</b> been peer reviewed. A manuscript version is being prepared for submission to the <em>Journal of Biomechanics</em>; this note will be updated when it enters review. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
 </div>
 
 <footer>

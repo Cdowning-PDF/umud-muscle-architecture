@@ -1,22 +1,27 @@
 # Device-Normalised Geometry for Muscle Architecture Measurement in B-Mode Ultrasound
 
-Technical report on a fully automated pipeline for measuring pennation angle, fascicle
-length and muscle thickness from B-mode ultrasound across six scanner layouts.
+Preprint on a fully automated pipeline for measuring pennation angle, fascicle length
+and muscle thickness from B-mode ultrasound across six scanner layouts.
 
 **Read it:** https://cdowning-pdf.github.io/umud-muscle-architecture/
 
-## Summary
+> **Status:** preprint, not peer reviewed. A manuscript version is being prepared for
+> submission to the *Journal of Biomechanics*.
+
+## Result
+
+Scores below are **error** measurements — like golf, lower is better. Each number is
+how far a measurement sits from the consensus of seven expert raters.
 
 | | |
 |---|---|
-| UMUD Challenge, final standing | 38 / 690 teams (top 5.5%) |
-| Movement, provisional → final | +50 places |
-| Benchmark score vs. 7-rater consensus | 0.196 |
-| One human expert, same benchmark | 0.259 |
+| UMUD Challenge, final standing | **Top 5.5%** — 38th of 690 teams |
+| This pipeline, error vs. 7-expert consensus | **0.196** |
+| One human expert, same measure | 0.259 |
 
 The pipeline measures closer to a seven-rater expert consensus than an individual
-expert does. Two components are derived rather than fitted, and are the ones we
-expect to transfer:
+expert does. Two components are derived rather than fitted, and are the ones expected
+to transfer:
 
 - **Lateral anisotropy correction.** Two of six scanner layouts export horizontally
   resampled screenshots, so pixels are not square and every angle read in pixel
