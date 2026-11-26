@@ -1,4 +1,6 @@
-# Device-Normalised Geometry for Muscle Architecture Measurement in B-Mode Ultrasound
+# Measuring Muscle Better Than a Human Expert
+
+*Device-normalised geometry for muscle architecture measurement in B-mode ultrasound*
 
 Preprint on a fully automated pipeline for measuring pennation angle, fascicle length
 and muscle thickness from B-mode ultrasound across six scanner layouts.
