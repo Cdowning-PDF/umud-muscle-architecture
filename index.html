@@ -58,6 +58,30 @@
     letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-top:.4rem; line-height:1.35;
   }
 
+  /* ---------- plain-language opener ---------- */
+  .explain{margin:2.6rem 0 2.4rem; padding-top:1.9rem; border-top:1px solid var(--rule)}
+  .xh{font-size:1.42rem; font-weight:600; margin:0 0 1.1rem; letter-spacing:-.012em; line-height:1.25}
+  .explain > p{font-size:1.02rem}
+  figure.shot{margin:1.6rem 0 1.5rem}
+  figure.shot img{
+    width:100%; height:auto; display:block; border:1px solid var(--rule);
+    background:#000; border-radius:2px;
+  }
+  figure.shot figcaption{
+    margin-top:.65rem; font-size:.88rem; line-height:1.55; color:var(--ink-soft);
+  }
+  .sw{font-weight:600; color:var(--ink); white-space:nowrap}
+  .sw::before{
+    content:""; display:inline-block; width:.62em; height:.62em; border-radius:2px;
+    background:var(--c); margin-right:.35em; vertical-align:baseline;
+    border:1px solid rgba(0,0,0,.18);
+  }
+  .sofwhat{
+    margin:1.8rem 0 0; padding:1.25rem 1.45rem; background:var(--white);
+    border:1px solid var(--rule); border-left:2.5px solid var(--accent);
+  }
+  .sofwhat p{font-size:.97rem; line-height:1.57; margin-bottom:.8rem}
+
   .abstract{margin:2.2rem 0 1rem; padding:1.5rem 1.6rem; background:var(--panel); border-left:2.5px solid var(--accent)}
   .abstract h2{
     font-family:ui-sans-serif,-apple-system,sans-serif; font-size:.67rem; letter-spacing:.14em;
@@ -164,6 +188,29 @@
   <div><div class="v">+50</div><div class="k">Places gained vs. public</div></div>
   <div><div class="v">0.196</div><div class="k">Benchmark score vs. 0.259 for one expert</div></div>
 </div>
+
+<section class="explain">
+  <h2 class="xh">What problem is this solving?</h2>
+
+  <figure class="shot">
+    <img src="img/annotated.webp" alt="Ultrasound scan of the quadriceps with the superficial aponeurosis highlighted in blue along the top, the deep aponeurosis in yellow along the bottom, and individual muscle fascicles traced in pink between them." loading="eager" width="1200" height="800">
+    <figcaption><b>This is a muscle, seen from inside the leg.</b> The two bands are sheets of connective tissue — the <span class="sw" style="--c:#4ecdd4">superficial</span> and <span class="sw" style="--c:#e8c54a">deep aponeurosis</span>. The <span class="sw" style="--c:#e87fc4">pink streaks</span> between them are muscle fibres. How steeply they run, how long they are, and how far apart the two bands sit determine how much force the muscle can produce.</figcaption>
+  </figure>
+
+  <p>Those three numbers — <b>fibre angle, fibre length, muscle thickness</b> — are how clinicians track whether a muscle is wasting after surgery, recovering in rehab, or adapting to training. They are measured constantly in sports medicine and physical therapy.</p>
+
+  <p>They are also measured <b>by hand</b>. A trained rater opens each scan and draws the lines with a mouse. It takes minutes per image, and it is not reliable: for novice raters, repeat measurements of the same image agree at a correlation as low as 0.00–0.30 <a href="#r5">[5]</a>. The colours above were drawn by a person, for illustration. They do not come with the scan.</p>
+
+  <figure class="shot">
+    <img src="img/raw.webp" alt="The same ultrasound scan without any annotation: grey speckled tissue in which the aponeuroses and fascicles are faint and low-contrast." loading="lazy" width="1200" height="800">
+    <figcaption><b>This is what the algorithm actually receives.</b> Same scan, no labels — and no metadata either: no scale, no record of which machine produced it, not even a guarantee that the pixels are square. Everything needed to turn this into three clinical numbers has to be recovered from the image itself.</figcaption>
+  </figure>
+
+  <div class="sofwhat">
+    <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept — in under a second, with no human in the loop.</p>
+    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and placed 38th of 690 teams. The rest of this report is how.</p>
+  </div>
+</section>
 
 <div class="abstract">
   <h2>Abstract</h2>
