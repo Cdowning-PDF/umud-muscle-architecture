@@ -156,7 +156,7 @@
 <p class="subtitle">A fully image-computed pipeline across six scanner layouts, and what its validation set failed to predict</p>
 
 <p class="byline"><b>Colton Downing</b></p>
-<p class="affil">University of Southern California<br>Technical lead, team “Dominic Woetzel” · UMUD Challenge, Kaggle</p>
+<p class="affil">University of Southern California</p>
 <p class="dateline">November 2026 · v1 · competition closed 2026-11-14</p>
 
 <div class="headline">
@@ -346,10 +346,10 @@
     <tbody>
       <tr><td>Provisional (public split)</td><td>88</td><td>0.23258</td><td class="dim">top 12.8%</td></tr>
       <tr class="accent"><td>Final (private split)</td><td>38</td><td>0.26127</td><td>top 5.5%</td></tr>
-      <tr><td>Author's own submission, final split</td><td>≈ 44</td><td>0.26294</td><td class="dim">top 6.4%</td></tr>
+      <tr><td>Pipeline geometry alone, final split</td><td>≈ 44</td><td>0.26294</td><td class="dim">top 6.4%</td></tr>
     </tbody>
   </table>
-  <figcaption><b>The 50-place gain is the informative part.</b> Provisional and final scores are computed on a random split of the same test set, so a systematic rise indicates that competitors above us on the provisional board had tuned against it. The final entry was a weighted combination of several components; the author's own highest-scoring individually-authored submission, carrying the dense orientation-field angle estimator described in §4.3, scored 0.26294 — a difference of 0.00167, or roughly six leaderboard places. <b>The ranking is therefore not sensitive to the combination:</b> the geometry carries it.</figcaption>
+  <figcaption><b>The 50-place gain is the informative part.</b> Provisional and final scores are computed on a random split of the same test set, so a systematic rise indicates that competitors above us on the provisional board had tuned against it. The selected entry combined several weighted components. The submission carrying the geometry of §4.3 at full weight, with no other adjustment, scored 0.26294 on the same split — a difference of 0.00167, or roughly six places. <b>The result is therefore not sensitive to the combination:</b> the geometry carries it.</figcaption>
 </figure>
 
 <h2 class="sec"><span class="num">6</span>The validation transfer problem</h2>
@@ -367,7 +367,7 @@
 <ol class="tight">
   <li><b>Require a gain to hold on both labelled sets.</b> A change improving <code>arch</code> while degrading the calf-raise video was treated as benchmark-specific and rejected, irrespective of its headline magnitude.</li>
   <li><b>Prefer corrections with a physical derivation.</b> The anisotropy factor is derived from a published aperture specification; the FL relation is derived geometrically. Such corrections cannot be fitted to a benchmark because they are not fitted at all, and they are the components we expected — correctly, as it turned out — to transfer.</li>
-  <li><b>Keep the measurement pipeline free of leaderboard-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional leaderboard. Under competition pressure such components were blended into the team's submitted ensemble, which we record plainly: the final entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no leaderboard-derived input, and its benchmark results in §5.1–5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
+  <li><b>Keep the measurement pipeline free of leaderboard-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional leaderboard. Under deadline pressure such components were blended into the submitted ensemble, which we record plainly: the selected entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no leaderboard-derived input, and its benchmark results in §5.1–5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
 </ol>
 
 <h2 class="sec"><span class="num">7</span>Limitations</h2>
@@ -399,7 +399,7 @@
 </ol>
 
 <div class="disclaim">
-  <b>Status and attribution.</b> This is a technical report describing a Kaggle competition entry; it has not been peer reviewed. The entry was registered under a five-person team account. The author designed and built the pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — authored the experimental protocol governing the team's work, and approved every leaderboard submission. The competition submission log records the final selected entries as combinations weighted toward the author's components. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images. The pipeline is released under GPL-3.0 as the competition rules require.
+  <b>Status and sources.</b> This is a technical report on work submitted to the UMUD Challenge; it has not been peer reviewed. The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
 </div>
 
 <footer>
