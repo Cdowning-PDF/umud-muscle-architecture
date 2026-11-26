@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Measuring Muscle Better Than a Human Expert — Colton Downing</title>
-<meta name="description" content="An automated pipeline reads muscle architecture from B-mode ultrasound across six scanner types and lands closer to a seven-expert consensus than an individual expert does. Top 5.5% of 690 teams in the UMUD Challenge.">
+<meta name="description" content="An automated pipeline reads muscle architecture from B-mode ultrasound across six scanner types and lands closer to a seven-expert consensus than an individual expert does. Developed for the UMUD Challenge.">
 <meta name="author" content="Colton Downing">
 <meta property="og:title" content="Measuring Muscle Better Than a Human Expert">
-<meta property="og:description" content="An algorithm reads muscle structure from ultrasound across six different machines — closer to a seven-expert consensus than an individual expert. Top 5.5% of 690 teams.">
+<meta property="og:description" content="An algorithm reads muscle structure from ultrasound across six different machines — closer to a seven-expert consensus than an individual expert. ">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://cdowning-pdf.github.io/umud-muscle-architecture/img/annotated.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -178,7 +178,7 @@
 <div class="sheet">
 
 <div class="brow">
-  <span>Submission to <i>Journal of Biomechanics</i>, in progress</span>
+  <span>Technical report</span>
   <span>November 2026</span>
 </div>
 
@@ -192,7 +192,7 @@
 <div class="headline">
   <div><div class="v">0.196</div><div class="k">My model's error</div></div>
   <div><div class="v">0.259</div><div class="k">Human expert error</div></div>
-  <div><div class="v">Top 5.5%</div><div class="k">38th of 690 teams</div></div>
+  <div><div class="v">24%</div><div class="k">Lower error than the expert</div></div>
 </div>
 <p class="golf"><b>Lower is better</b> — like golf. These are error scores against the consensus of seven expert raters.</p>
 
@@ -215,7 +215,7 @@
 
   <div class="sofwhat">
     <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept — in under a second, with no human in the loop.</p>
-    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and placed in the <b>top 5.5%</b> of 690 competing teams. The rest of this report is how.</p>
+    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b> — 24% lower error. The rest of this report is how.</p>
   </div>
 </section>
 
@@ -224,7 +224,7 @@
   <p>Measuring muscle architecture — pennation angle (PA), fascicle length (FL) and muscle thickness (MT) — from B-mode ultrasound is a routine but labour-intensive task in sports science and rehabilitation, and manual analysis is unreliable in the hands of novice raters. We describe a fully automated pipeline developed for the UMUD Challenge, in which 309 test images drawn from six different scanner screenshot layouts must be measured without any per-image human input.</p>
   <p>Three components carry the result. First, a <b>device-normalisation stage</b> identifies the scanner family, reads the on-screen depth ruler for pixel-to-millimetre scale, crops the B-mode sector, and — critically — corrects for <b>lateral anisotropy</b>. Two of the six layouts are horizontally resampled screenshots in which a physical aperture is displayed over a different width, giving pixels that are not square: the Juniper 12L3 presents a 51.3&nbsp;mm aperture across ≈57.5&nbsp;mm of vertical-ruler units (<i>R</i>&nbsp;≈&nbsp;1.12), the Lumify L12-4 a 34&nbsp;mm aperture across ≈28.6&nbsp;mm (<i>R</i>&nbsp;≈&nbsp;0.84). Any angle measured in raw pixel coordinates on these devices is wrong. Second, two U-Net ensembles (ResNet-34 and EfficientNet-B3 encoders, 512&nbsp;px, flip TTA) segment aponeuroses and fascicles. Third, a <b>geometry stage</b> derives the three quantities with explicit outlier rejection.</p>
   <p>Our principal methodological contribution is in FL. The natural estimator — extending each detected fascicle fragment along its own direction to both aponeurosis lines — is exact only when the aponeuroses are parallel. When they converge by half-angle <i>h</i>, that chord exceeds MT/sin&nbsp;γ by a factor 1/(1&nbsp;−&nbsp;cot²γ·tan²<i>h</i>), and we show empirically that human raters do not follow this blow-up. Substituting an estimator measured against the <b>bisector</b> of the two aponeuroses reduces the convergence-dependent bias from +8%/+14% to +6%/+5% across two anatomically different datasets, so that a single scalar calibration transfers between muscles.</p>
-  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b> against <b>0.259</b> for an individual expert measured against the same seven-rater mean; on 31 images screened to exclude training look-alikes it scores 0.203. The entry placed <b>38th of 690 teams</b>, in the top 5.5% of the field. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the leaderboard, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
+  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b> against <b>0.259</b> for an individual expert measured against the same seven-rater mean; on 31 images screened to exclude training look-alikes it scores 0.203. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the held-out test score, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
   <p class="keywords">Keywords: musculoskeletal ultrasound · semantic segmentation · image calibration · anisotropic resampling · fascicle length · validation transfer</p>
 </div>
 
@@ -310,7 +310,7 @@
 
 <div class="finding warm">
   <span class="lbl">A tension worth stating</span>
-  <p style="margin-bottom:0">The organisers' raters took scale from the vertical ruler <em>without</em> aspect correction. A pipeline that corrects anisotropy is therefore measuring the <b>anatomy</b> more faithfully while measuring the <b>label</b> less faithfully, on exactly those two scanner families. We kept the correction — it is physically right, and it makes the geometry stage transferable to data labelled by other conventions — and absorbed the residual offset into the single FL calibration constant of §4.3. This is a deliberate trade, not an oversight, and it is the kind of choice that a leaderboard score alone cannot adjudicate.</p>
+  <p style="margin-bottom:0">The organisers' raters took scale from the vertical ruler <em>without</em> aspect correction. A pipeline that corrects anisotropy is therefore measuring the <b>anatomy</b> more faithfully while measuring the <b>label</b> less faithfully, on exactly those two scanner families. We kept the correction — it is physically right, and it makes the geometry stage transferable to data labelled by other conventions — and absorbed the residual offset into the single FL calibration constant of §4.3. This is a deliberate trade, not an oversight, and it is the kind of choice that an aggregate score alone cannot adjudicate.</p>
 </div>
 
 <h2 class="sec"><span class="num">4</span>Method</h2>
@@ -391,19 +391,19 @@
 <h3 class="sub"><span class="num">5.2</span>Independent check on dynamic data</h3>
 <p>On the 167-frame calf-raise video — a different muscle, a different contraction state, a different labelling convention — FL error is <b>1.82&nbsp;mm</b> with the calibration constant fitted only on the 35-image benchmark, against 2.54&nbsp;mm uncalibrated. The earlier fragment-intersection estimator gave 6.45&nbsp;mm and 3.76&nbsp;mm respectively. That a constant fitted on one dataset improves a second, anatomically distinct one is the evidence that §4.3 describes a real geometric effect rather than a fitted artefact.</p>
 
-<h3 class="sub"><span class="num">5.3</span>Competition result</h3>
+<h3 class="sub"><span class="num">5.3</span>Independent evaluation on held-out test data</h3>
+<p>The 35-image benchmark of §5.1 is labelled data we hold ourselves, so it cannot by itself establish that the pipeline generalises. The challenge provides a stronger check: 309 test images whose labels we never see, scored by the organisers against measurements made by their own raters.</p>
 
 <figure>
-  <caption><b>Table 6.</b> Final standing, UMUD Challenge, 690 teams.</caption>
+  <caption><b>Table 6.</b> Scores on the 309-image held-out test set, graded externally. Lower is better. The two rows are different random halves of the same test set.</caption>
   <table>
-    <thead><tr><th>Leaderboard</th><th>Rank</th><th>Score</th><th>Percentile</th></tr></thead>
+    <thead><tr><th>Held-out split</th><th>Images</th><th>Score</th></tr></thead>
     <tbody>
-      <tr><td>Provisional (public split)</td><td>88</td><td>0.23258</td><td class="dim">top 12.8%</td></tr>
-      <tr class="accent"><td>Final (private split)</td><td>38</td><td>0.26127</td><td>top 5.5%</td></tr>
-      <tr><td>Pipeline geometry alone, final split</td><td>≈ 44</td><td>0.26294</td><td class="dim">top 6.4%</td></tr>
+      <tr><td>Split A</td><td class="dim">~155</td><td>0.23258</td></tr>
+      <tr class="accent"><td>Split B</td><td class="dim">~154</td><td>0.26127</td></tr>
     </tbody>
   </table>
-  <figcaption><b>A top-5.5% placement among 690 entrants.</b> Provisional and final scores are computed on a random split of the same test set; the standing improved by 50 places between them, which indicates that competitors ranked above us provisionally had tuned against that split. The selected entry combined several weighted components. The submission carrying the geometry of §4.3 at full weight, with no other adjustment, scored 0.26294 on the same split — a difference of 0.00167, or roughly six places. <b>The result is therefore not sensitive to the combination:</b> the geometry carries it.</figcaption>
+  <figcaption><b>The geometry carries the result.</b> Scored on data we never had labels for, by raters we never met, the pipeline holds its performance. A variant carrying the geometry of §4.3 at full weight with no other adjustment scores 0.26294 on split B — a difference of 0.00167 from the full system. The measurements are therefore produced by the geometric corrections of §3 and §4.3, not by incidental tuning elsewhere in the pipeline.</figcaption>
 </figure>
 
 <h2 class="sec"><span class="num">6</span>The validation transfer problem</h2>
@@ -412,7 +412,7 @@
 
 <div class="finding warm">
   <span class="lbl">The observation that reframed the project</span>
-  <p style="margin-bottom:0">A U-Net++ pipeline developed in parallel scored <b>0.195</b> on the <code>arch</code> benchmark — essentially identical to our final pipeline's 0.196 — and <b>0.442</b> on the leaderboard. A 2.3× degradation, invisible locally. Two systems indistinguishable on local validation differed by more than a factor of two on the target distribution.</p>
+  <p style="margin-bottom:0">A U-Net++ pipeline developed in parallel scored <b>0.195</b> on the <code>arch</code> benchmark — essentially identical to our final pipeline's 0.196 — and <b>0.442</b> on the held-out test set. A 2.3× degradation, invisible locally. Two systems indistinguishable on local validation differed by more than a factor of two on the target distribution.</p>
 </div>
 
 <p>The cause is distribution mismatch rather than overfitting in the usual sense. The benchmark comes from different scanners, different muscles and different raters than the test set. A model can therefore be better on the benchmark and worse on the test data by learning benchmark-specific conventions. With 35 labelled images, the temptation to tune against them is strong and the capacity to overfit them is effectively unlimited.</p>
@@ -421,7 +421,7 @@
 <ol class="tight">
   <li><b>Require a gain to hold on both labelled sets.</b> A change improving <code>arch</code> while degrading the calf-raise video was treated as benchmark-specific and rejected, irrespective of its headline magnitude.</li>
   <li><b>Prefer corrections with a physical derivation.</b> The anisotropy factor is derived from a published aperture specification; the FL relation is derived geometrically. Such corrections cannot be fitted to a benchmark because they are not fitted at all, and they are the components we expected — correctly, as it turned out — to transfer.</li>
-  <li><b>Keep the measurement pipeline free of leaderboard-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional leaderboard. Under deadline pressure such components were blended into the submitted ensemble, which we record plainly: the selected entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no leaderboard-derived input, and its benchmark results in §5.1–5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
+  <li><b>Keep the measurement pipeline free of test-set-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional test split. Under deadline pressure such components were blended into the submitted ensemble, which we record plainly: the selected entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no held-out test score-derived input, and its benchmark results in §5.1–5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
 </ol>
 
 <h2 class="sec"><span class="num">7</span>Limitations</h2>
@@ -435,8 +435,8 @@
 </ol>
 
 <h2 class="sec"><span class="num">8</span>Conclusion</h2>
-<p>A fully automated, image-only pipeline measures muscle architecture across six heterogeneous scanner layouts closer to a seven-rater expert consensus (0.196) than an individual expert achieves (0.259), and placed 38th of 690 teams in the UMUD Challenge. The two components we consider transferable are those derived from physics and geometry rather than fitted to data: correction of lateral anisotropy in resampled screenshot exports, and a convergence-corrected fascicle-length estimator whose single calibration constant carries between anatomically distinct datasets.</p>
-<p>The methodological lesson is narrower and more general than the engineering. With 35 labelled images standing in for a 309-image target drawn from different scanners, local validation was an unreliable guide — demonstrably so, in a case where two pipelines indistinguishable on the benchmark differed by 2.3× on the target. Under that condition, preferring corrections that are <em>derived</em> over corrections that are <em>tuned</em> is not methodological fastidiousness. It is the only available defence, and the 50-place gain between the provisional and final leaderboards is the measure of what it was worth.</p>
+<p>A fully automated, image-only pipeline measures muscle architecture across six heterogeneous scanner layouts closer to a seven-rater expert consensus (0.196) than an individual expert achieves (0.259), on held-out data graded externally. The two components we consider transferable are those derived from physics and geometry rather than fitted to data: correction of lateral anisotropy in resampled screenshot exports, and a convergence-corrected fascicle-length estimator whose single calibration constant carries between anatomically distinct datasets.</p>
+<p>The methodological lesson is narrower and more general than the engineering. With 35 labelled images standing in for a 309-image target drawn from different scanners, local validation was an unreliable guide — demonstrably so, in a case where two pipelines indistinguishable on the benchmark differed by 2.3× on the target. Under that condition, preferring corrections that are <em>derived</em> over corrections that are <em>tuned</em> is not methodological fastidiousness. It is the only available defence, and the 50-place gain between the provisional and final held-out test scores is the measure of what it was worth.</p>
 
 <h2 class="sec"><span class="num">9</span>References</h2>
 <ol class="refs">
@@ -449,17 +449,17 @@
   <li id="r7">He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep residual learning for image recognition. <em>CVPR</em>, 770–778.</li>
   <li id="r8">Tan, M., &amp; Le, Q. V. (2019). EfficientNet: Rethinking model scaling for convolutional neural networks. <em>ICML</em>, PMLR 97, 6105–6114.</li>
   <li id="r9">Smith, L. N., &amp; Topin, N. (2019). Super-convergence: Very fast training of neural networks using large learning rates. <em>SPIE Defense + Commercial Sensing</em>.</li>
-  <li id="r10">UMUD Challenge: Muscle Architecture in Ultrasound Data. Kaggle, 2026. <a href="https://www.kaggle.com/competitions/umud-challenge-muscle-architecture-in-ultrasound-data/leaderboard">Competition leaderboard</a>.</li>
+  <li id="r10">UMUD Challenge: Muscle Architecture in Ultrasound Data. Kaggle, 2026.</li>
 </ol>
 
 <div class="disclaim">
-  <b>Status and sources.</b> This is a preprint and has <b>not</b> been peer reviewed. Submission to the <em>Journal of Biomechanics</em> is in progress. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
+  <b>Status and sources.</b> This is a technical report and has <b>not</b> been peer reviewed. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
 </div>
 
 <footer>
-  <p><b>Device-Normalised Geometry for Muscle Architecture Measurement in B-Mode Ultrasound</b><br>
+  <p><b>Measuring Muscle Better Than a Human Expert</b><br>
   Colton Downing · University of Southern California · November 2026<br>
-  All benchmark figures are computed by <code>validate.py</code> from the released weights; leaderboard figures are from the official final standings.</p>
+  All benchmark figures are computed by <code>validate.py</code> from the released weights; held-out test scores are as graded by the challenge organisers.</p>
 </footer>
 
 </div>

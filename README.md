@@ -2,13 +2,10 @@
 
 
 
-Preprint on a fully automated pipeline for measuring pennation angle, fascicle length
+Technical report on a fully automated pipeline for measuring pennation angle, fascicle length
 and muscle thickness from B-mode ultrasound across six scanner layouts.
 
 **Read it:** https://cdowning-pdf.github.io/umud-muscle-architecture/
-
-> **Status:** preprint, not peer reviewed. A manuscript version is being prepared for
-> submission to the *Journal of Biomechanics*.
 
 ## Result
 
@@ -17,9 +14,9 @@ how far a measurement sits from the consensus of seven expert raters.
 
 | | |
 |---|---|
-| UMUD Challenge, final standing | **Top 5.5%** — 38th of 690 teams |
-| This pipeline, error vs. 7-expert consensus | **0.196** |
+| My model, error vs. 7-expert consensus | **0.196** |
 | One human expert, same measure | 0.259 |
+| Reduction in error | **24% lower** |
 
 The pipeline measures closer to a seven-rater expert consensus than an individual
 expert does. Two components are derived rather than fitted, and are the ones expected
