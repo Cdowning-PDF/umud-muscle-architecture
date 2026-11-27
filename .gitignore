@@ -1,0 +1,12 @@
+# Private to the submission process — never publish these.
+# cover_letter.md carries personal contact details and reads as correspondence
+# with an editor. SUBMISSION_CHECKLIST.md is working notes, including a frank
+# section on the paper's weakest point. Neither is for a public repo.
+submission/cover_letter.md
+submission/SUBMISSION_CHECKLIST.md
+
+# LaTeX build artefacts
+submission/*.aux
+submission/*.log
+submission/*.out
+submission/missfont.log
