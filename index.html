@@ -92,6 +92,7 @@
   .abstract p{margin:0 0 .85rem; font-size:.96rem; line-height:1.57}
   .abstract p:last-child{margin-bottom:0}
   .keywords{font-size:.84rem; color:var(--ink-faint); margin:1rem 0 0; font-style:italic}
+  .headline .k .sub2{display:inline-block; margin-top:.2rem; font-style:italic; text-transform:none; letter-spacing:0; font-size:.95em; opacity:.8}
   .golf{
     margin:.85rem 0 0; padding:.8rem 1rem; background:var(--white);
     border:1px solid var(--rule-soft); font-size:.89rem; line-height:1.55; color:var(--ink-soft);
@@ -190,11 +191,11 @@
 <p class="dateline">November 2026 · v1 · competition closed 2026-11-14</p>
 
 <div class="headline">
-  <div><div class="v">0.196</div><div class="k">My model's error</div></div>
-  <div><div class="v">0.264</div><div class="k">Human expert error</div></div>
-  <div><div class="v">0.331</div><div class="k">DL_Track_US — the standard<br>software in this field</div></div>
+  <div><div class="v">0.196</div><div class="k">My model's error<br><span class="sub2">lower is better</span></div></div>
+  <div><div class="v">26%</div><div class="k">More accurate than<br>a human expert</div></div>
+  <div><div class="v">41%</div><div class="k">More accurate than <b>DL_Track_US</b>,<br>the standard software in this field</div></div>
 </div>
-<p class="golf"><b>Lower is better</b> — like golf. These are error scores against the consensus of seven expert raters. The pipeline is <b>26% more accurate than a human expert</b> and <b>41% more accurate than the open-source tool this field already uses</b>.</p>
+<p class="golf"><b>Lower is better</b> — like golf. Every score is how far a measurement sits from the consensus of seven expert raters, on the same 35 images: <b>0.196</b> for this pipeline, <b>0.264</b> for an individual expert, <b>0.331</b> for DL_Track_US.</p>
 
 <section class="explain">
   <h2 class="xh">What problem is this solving?</h2>
