@@ -9,15 +9,14 @@ and muscle thickness from B-mode ultrasound across six scanner layouts.
 
 ## Result
 
-Scores below are **error** measurements — like golf, lower is better. Each number is
-how far a measurement sits from the consensus of seven expert raters.
+Scores below are **error** measurements, like golf, lower is better. Each number is how far a measurement sits from the consensus of seven expert raters.
 
 | | |
 |---|---|
 | **My model** | **0.196** |
-| One human expert (leave-one-out median) | 0.264 — 35% higher |
-| DL_Track_US — the standard tool in this field | 0.331 — 69% higher |
-| SMA — earlier automated method | 0.409 — 109% higher |
+| One human expert (leave-one-out median) | 0.264, 35% higher |
+| DL_Track_US, the standard tool in this field | 0.331, 69% higher |
+| SMA, earlier automated method | 0.409, 109% higher |
 
 The pipeline measures closer to a seven-rater expert consensus than an individual
 expert does, and closer than DL_Track_US, the established open-source tool for this
