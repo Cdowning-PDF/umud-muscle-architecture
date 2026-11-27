@@ -191,10 +191,10 @@
 
 <div class="headline">
   <div><div class="v">0.196</div><div class="k">My model's error</div></div>
-  <div><div class="v">0.259</div><div class="k">Human expert error</div></div>
-  <div><div class="v">24%</div><div class="k">Lower error than the expert</div></div>
+  <div><div class="v">0.264</div><div class="k">Human expert error</div></div>
+  <div><div class="v">0.331</div><div class="k">DL_Track_US — the standard<br>software in this field</div></div>
 </div>
-<p class="golf"><b>Lower is better</b> — like golf. These are error scores against the consensus of seven expert raters.</p>
+<p class="golf"><b>Lower is better</b> — like golf. These are error scores against the consensus of seven expert raters. The pipeline is <b>26% more accurate than a human expert</b> and <b>41% more accurate than the open-source tool this field already uses</b>.</p>
 
 <section class="explain">
   <h2 class="xh">What problem is this solving?</h2>
@@ -215,7 +215,7 @@
 
   <div class="sofwhat">
     <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept — in under a second, with no human in the loop.</p>
-    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b> — 24% lower error. The rest of this report is how.</p>
+    <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and closer than <b>DL_Track_US</b>, the established open-source tool for this task. The rest of this report is how.</p>
   </div>
 </section>
 
@@ -224,7 +224,7 @@
   <p>Measuring muscle architecture — pennation angle (PA), fascicle length (FL) and muscle thickness (MT) — from B-mode ultrasound is a routine but labour-intensive task in sports science and rehabilitation, and manual analysis is unreliable in the hands of novice raters. We describe a fully automated pipeline developed for the UMUD Challenge, in which 309 test images drawn from six different scanner screenshot layouts must be measured without any per-image human input.</p>
   <p>Three components carry the result. First, a <b>device-normalisation stage</b> identifies the scanner family, reads the on-screen depth ruler for pixel-to-millimetre scale, crops the B-mode sector, and — critically — corrects for <b>lateral anisotropy</b>. Two of the six layouts are horizontally resampled screenshots in which a physical aperture is displayed over a different width, giving pixels that are not square: the Juniper 12L3 presents a 51.3&nbsp;mm aperture across ≈57.5&nbsp;mm of vertical-ruler units (<i>R</i>&nbsp;≈&nbsp;1.12), the Lumify L12-4 a 34&nbsp;mm aperture across ≈28.6&nbsp;mm (<i>R</i>&nbsp;≈&nbsp;0.84). Any angle measured in raw pixel coordinates on these devices is wrong. Second, two U-Net ensembles (ResNet-34 and EfficientNet-B3 encoders, 512&nbsp;px, flip TTA) segment aponeuroses and fascicles. Third, a <b>geometry stage</b> derives the three quantities with explicit outlier rejection.</p>
   <p>Our principal methodological contribution is in FL. The natural estimator — extending each detected fascicle fragment along its own direction to both aponeurosis lines — is exact only when the aponeuroses are parallel. When they converge by half-angle <i>h</i>, that chord exceeds MT/sin&nbsp;γ by a factor 1/(1&nbsp;−&nbsp;cot²γ·tan²<i>h</i>), and we show empirically that human raters do not follow this blow-up. Substituting an estimator measured against the <b>bisector</b> of the two aponeuroses reduces the convergence-dependent bias from +8%/+14% to +6%/+5% across two anatomically different datasets, so that a single scalar calibration transfers between muscles.</p>
-  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b> against <b>0.259</b> for an individual expert measured against the same seven-rater mean; on 31 images screened to exclude training look-alikes it scores 0.203. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the held-out test score, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
+  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b>, against <b>0.264</b> for an individual expert and <b>0.331</b> for DL_Track_US, the established open-source tool for this task; on 31 images screened to exclude training look-alikes it scores 0.203. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the held-out test score, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
   <p class="keywords">Keywords: musculoskeletal ultrasound · semantic segmentation · image calibration · anisotropic resampling · fascicle length · validation transfer</p>
 </div>
 
@@ -372,21 +372,29 @@
 
 <h2 class="sec"><span class="num">5</span>Results</h2>
 
-<h3 class="sub"><span class="num">5.1</span>Against a seven-rater consensus</h3>
-<p>The 35-image benchmark carries seven independent expert measurements per image. This permits the most informative comparison available: scoring the pipeline against the seven-rater mean, and scoring a single held-out human expert against that same mean.</p>
+<h3 class="sub"><span class="num">5.1</span>Against the field standard and against human experts</h3>
+<p>The 35-image benchmark carries seven independent expert measurements per image, and ships published results for two automated methods: <b>DL_Track_US</b> <a href="#r2">[2]</a>, the established open-source tool for this task, and <b>SMA</b>, an earlier non-trainable automated method. All three automated systems can therefore be scored against the identical seven-rater consensus, with no re-implementation and no choices of ours in between.</p>
+<p>Human performance needs more care. Scoring a rater against a consensus that includes their own measurement flatters them, since they are partly being compared to themselves. We therefore score each rater <b>leave-one-out</b>, against the mean of the other six, and report the median across raters — one rater is a clear outlier and the median is the robust summary.</p>
 
 <figure>
-  <caption><b>Table 5.</b> Benchmark results under the official UMUD scoring formula; lower is better. The expert row is one rater scored against the mean of the other seven — i.e. the error of a competent human.</caption>
+  <caption><b>Table 5.</b> All methods scored against the same seven-rater expert consensus on the same 35 images, under the official UMUD formula. <b>Lower is better.</b></caption>
   <table>
-    <thead><tr><th></th><th>PA (°)</th><th>FL (mm)</th><th>MT (mm)</th><th>UMUD score</th></tr></thead>
+    <thead><tr><th>Method</th><th>PA (°)</th><th>FL (mm)</th><th>MT (mm)</th><th>Score</th><th>vs. ours</th></tr></thead>
     <tbody>
-      <tr><td>One human expert vs. 7-rater mean</td><td>1.24</td><td>4.26</td><td>0.65</td><td>0.259</td></tr>
-      <tr class="accent"><td>This pipeline (LOO calibration)</td><td>1.16</td><td>2.70</td><td>0.51</td><td>0.196</td></tr>
-      <tr><td>Same, 31 images with no training look-alike</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>0.203</td></tr>
+      <tr><td>SMA — earlier automated method</td><td>2.39</td><td>7.01</td><td>0.74</td><td>0.409</td><td class="dim">+109%</td></tr>
+      <tr><td><b>DL_Track_US</b> — field standard</td><td>1.45</td><td>3.74</td><td>1.31</td><td>0.331</td><td class="dim">+69%</td></tr>
+      <tr><td>Single human expert (leave-one-out median)</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>0.264</td><td class="dim">+35%</td></tr>
+      <tr class="accent"><td>This pipeline</td><td>1.16</td><td>2.70</td><td>0.51</td><td>0.196</td><td>—</td></tr>
+      <tr><td>Same, 31 images with no training look-alike</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>0.203</td><td class="dim">—</td></tr>
     </tbody>
   </table>
-  <figcaption><b>Reading this table.</b> The pipeline is closer to the consensus of seven experts than an individual expert is. This is a claim about <em>agreement with a consensus</em>, not about correctness: the experts may share systematic conventions that the pipeline has learned to reproduce. It is nonetheless the strongest comparison the data supports, and the 0.196 → 0.203 shift on look-alike-free images bounds the optimism at roughly 3.5%.</figcaption>
+  <figcaption><b>Where the margin comes from.</b> Against DL_Track_US the pipeline is better on all three quantities, but the gap is widest in <b>fascicle length</b> — 2.70&nbsp;mm against 3.74&nbsp;mm. That is precisely the quantity the convergence correction of §4.3 addresses, so the theoretical argument and the measured improvement point at the same place. Individual raters span 0.246 to 0.483 leave-one-out; the median of 0.264 is quoted rather than the mean of 0.303, which one outlying rater inflates. The 0.196&nbsp;→&nbsp;0.203 shift on look-alike-free images bounds residual optimism at roughly 3.5%.</figcaption>
 </figure>
+
+<div class="finding">
+  <span class="lbl">On what this does and does not show</span>
+  <p style="margin-bottom:0">These are claims about <em>agreement with an expert consensus</em>, not about anatomical truth — no biopsy or phantom standard exists here, and the raters may share conventions that an automated method can learn to reproduce. The comparison against DL_Track_US and SMA is nonetheless as direct as this kind of evaluation gets: same images, same consensus, same formula, and results published by the benchmark's own authors rather than produced by us.</p>
+</div>
 
 <h3 class="sub"><span class="num">5.2</span>Independent check on dynamic data</h3>
 <p>On the 167-frame calf-raise video — a different muscle, a different contraction state, a different labelling convention — FL error is <b>1.82&nbsp;mm</b> with the calibration constant fitted only on the 35-image benchmark, against 2.54&nbsp;mm uncalibrated. The earlier fragment-intersection estimator gave 6.45&nbsp;mm and 3.76&nbsp;mm respectively. That a constant fitted on one dataset improves a second, anatomically distinct one is the evidence that §4.3 describes a real geometric effect rather than a fitted artefact.</p>

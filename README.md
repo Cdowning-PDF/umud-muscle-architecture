@@ -14,12 +14,14 @@ how far a measurement sits from the consensus of seven expert raters.
 
 | | |
 |---|---|
-| My model, error vs. 7-expert consensus | **0.196** |
-| One human expert, same measure | 0.259 |
-| Reduction in error | **24% lower** |
+| **My model** | **0.196** |
+| One human expert (leave-one-out median) | 0.264 — 35% higher |
+| DL_Track_US — the standard tool in this field | 0.331 — 69% higher |
+| SMA — earlier automated method | 0.409 — 109% higher |
 
 The pipeline measures closer to a seven-rater expert consensus than an individual
-expert does. Two components are derived rather than fitted, and are the ones expected
+expert does, and closer than DL_Track_US, the established open-source tool for this
+task. All methods are scored on the same 35 images against the same consensus. Two components are derived rather than fitted, and are the ones expected
 to transfer:
 
 - **Lateral anisotropy correction.** Two of six scanner layouts export horizontally
