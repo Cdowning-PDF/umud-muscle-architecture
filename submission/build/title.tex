@@ -1,0 +1,182 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{times}
+\usepackage{amsmath}
+\pagestyle{empty}
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Device-normalised geometry for muscle architecture\\[4pt]
+measurement in B-mode ultrasound}
+\end{center}
+\vspace{1.5em}
+
+\noindent\textbf{Author}
+\vspace{0.4em}
+
+\noindent Colton Downing\\
+University of Southern California, Los Angeles, CA, USA\\
+ORCID: 0009-0009-8874-1914
+\vspace{1.2em}
+
+\noindent\textbf{Corresponding author}
+\vspace{0.4em}
+
+\noindent Colton Downing\\
+University of Southern California\\
+University Park Campus, Los Angeles, CA 90089, United States\\
+cjdownin@usc.edu
+\vspace{1.2em}
+
+\noindent\textbf{Declarations}
+\vspace{0.4em}
+
+\noindent Conflicts of interest: none. Funding: none. The author declares no competing
+financial or personal interests.
+\vspace{1.5em}
+
+\hrule
+\vspace{1.5em}
+
+\noindent\textbf{\large Abstract}
+\vspace{0.8em}
+
+Tools that measure muscle architecture from B-mode ultrasound assume a known
+setup: one scanner, one export convention, an operator-supplied scale. This
+paper handles the case where none of that exists. The input is an unlabelled
+screenshot from one of six ultrasound systems, and pennation angle (PA),
+fascicle length (FL) and muscle thickness (MT) have to come out of the pixels
+alone.
+
+Two corrections do most of the work, and both follow from first principles
+rather than from fitting. The first concerns pixel shape: two of the six
+layouts export a horizontally resampled image, so the pixels are not square and
+any angle read in pixel coordinates is wrong by a fixed factor. The published
+transducer aperture gives that factor directly. The second concerns fascicle
+length. The usual estimator extends a fascicle fragment until it meets both
+aponeuroses, which is exact only when they run parallel. When they converge with
+half-angle $h$, that chord exceeds $\mathrm{MT}/\sin\gamma$ by a factor
+$1/(1-\cot^{2}\gamma\tan^{2}h)$. Expert raters do not reproduce that inflation.
+Measuring the angle to the bisector of the two aponeuroses removes the
+dependence on convergence and lets a single calibration constant carry between
+muscles.
+
+On a 35-image benchmark measured independently by seven expert raters, the
+method scores 0.196 under the UMUD error formula. DL\_Track\_US scores 0.331,
+SMA scores 0.409, and an individual expert rater scores 0.264 by leave-one-out.
+On a separate 167-frame dynamic sequence of a different muscle, fascicle-length
+error is 1.82~mm using a constant fitted only on the static benchmark.
+
+\vspace{1.2em}
+
+\noindent\textbf{Corresponding author}
+\vspace{0.4em}
+
+\noindent Colton Downing\\
+University of Southern California\\
+University Park Campus, Los Angeles, CA 90089, United States\\
+cjdownin@usc.edu
+\vspace{1.2em}
+
+\noindent\textbf{Declarations}
+\vspace{0.4em}
+
+\noindent Conflicts of interest: none. Funding: none. The author declares no competing
+financial or personal interests.
+\vspace{1.5em}
+
+\hrule
+\vspace{1.5em}
+
+\noindent\textbf{\large Abstract}
+\vspace{0.8em}
+
+Tools that measure muscle architecture from B-mode ultrasound assume a known
+setup: one scanner, one export convention, and an operator-supplied scale. This
+paper handles the case where none of that exists. The input is an unlabelled
+screenshot from one of six ultrasound systems, carrying no metadata and no
+stated scale, and pennation angle (PA), fascicle length (FL) and muscle
+thickness (MT) have to come out of the pixels alone.
+
+Two corrections do most of the work, and both follow from first principles
+rather than from fitting. The first concerns pixel shape: two of the six layouts
+export a horizontally resampled image, so the pixels are not square and any
+angle read in pixel coordinates is wrong by a fixed factor. The published
+transducer aperture gives that factor directly (Juniper 12L3,
+$R \approx 1.12$; Lumify L12-4, $R \approx 0.84$). The second concerns fascicle
+length. The usual estimator extends a fascicle fragment until it meets both
+aponeuroses, which is exact only when they run parallel. When they converge with
+half-angle $h$, that chord exceeds $\mathrm{MT}/\sin\gamma$ by a factor
+$1/(1-\cot^{2}\gamma\tan^{2}h)$. Expert raters do not reproduce that inflation.
+Measuring the angle to the bisector of the two aponeuroses removes the
+dependence on convergence and lets a single calibration constant carry between
+muscles.
+
+On a 35-image benchmark measured independently by seven expert raters, the
+method scores 0.196 under the UMUD error formula. DL\_Track\_US scores 0.331 on
+the same images, SMA scores 0.409, and an individual expert rater scores 0.264
+by leave-one-out. On a separate 167-frame dynamic sequence of a different
+muscle, fascicle-length error is 1.82~mm using a constant fitted only on the
+static benchmark.
+
+\vspace{1.2em}
+
+\noindent\textbf{Corresponding author}
+\vspace{0.4em}
+
+\noindent Colton Downing\\
+University of Southern California\\
+University Park Campus, Los Angeles, CA 90089, United States\\
+cjdownin@usc.edu
+\vspace{1.2em}
+
+\noindent\textbf{Declarations}
+\vspace{0.4em}
+
+\noindent Conflicts of interest: none. Funding: none. The author declares no competing
+financial or personal interests.
+\vspace{1.5em}
+
+\hrule
+\vspace{1.5em}
+
+\noindent\textbf{\large Abstract}
+\vspace{0.8em}
+
+\noindent Tools that measure muscle architecture from B-mode ultrasound usually assume a
+known setup: one scanner, one export convention, and a scale the operator types
+in. This paper handles the case where none of that exists. The input is an
+unlabelled screenshot from one of six different ultrasound systems, carrying no
+metadata and no stated scale, and pennation angle (PA), fascicle length (FL) and
+muscle thickness (MT) have to come out of the pixels alone.
+
+\vspace{0.6em}
+\noindent Two corrections do most of the work, and both follow from first principles
+rather than from fitting. The first concerns pixel shape. Two of the six layouts
+export a horizontally resampled image, so the pixels are not square, and any
+angle read in pixel coordinates on those devices is wrong by a fixed factor. The
+published transducer aperture gives that factor directly (Juniper 12L3,
+$R \approx 1.12$; Lumify L12-4, $R \approx 0.84$), so the pipeline resamples to
+square physical pixels before measuring anything. The second concerns fascicle
+length. The usual estimator extends a detected fascicle fragment until it meets
+both aponeuroses, which is exact only when the aponeuroses run parallel. When
+they converge with half-angle $h$, that chord exceeds $\mathrm{MT}/\sin\gamma$
+by a factor $1/(1-\cot^{2}\gamma\tan^{2}h)$. Expert raters do not reproduce that
+inflation. Measuring the angle to the bisector of the two aponeuroses instead
+removes the dependence on convergence, which cuts the spread in bias across two
+different muscles from six percentage points to one and lets a single
+calibration constant carry between them.
+
+\vspace{0.6em}
+\noindent On a 35-image benchmark measured independently by seven expert raters, the
+method scores 0.196 under the UMUD error formula against the seven-rater
+consensus. DL\_Track\_US scores 0.331 on the same images, SMA scores 0.409, and
+an individual expert rater scores 0.264 by leave-one-out. On a separate
+167-frame dynamic sequence of a different muscle, fascicle-length error is
+1.82~mm using a constant fitted only on the static benchmark.
+
+\vspace{1.2em}
+\noindent\textbf{Keywords:} musculoskeletal ultrasound; muscle architecture; fascicle
+length; pennation angle; image calibration
+
+\end{document}

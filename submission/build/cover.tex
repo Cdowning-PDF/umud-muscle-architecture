@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{times}
+\pagestyle{empty}
+\begin{document}
+\noindent 27 November 2026
+\vspace{1.5em}
+
+\noindent The Editors\\
+\textit{Journal of Biomechanics}
+\vspace{1.5em}
+
+\noindent Dear Editors,
+\vspace{1em}
+
+\noindent I am submitting the attached manuscript, ``Device-normalised geometry for
+muscle architecture measurement in B-mode ultrasound,'' for consideration in the
+\textit{Journal of Biomechanics}.
+\vspace{1em}
+
+\noindent Measuring pennation angle, fascicle length and muscle thickness from B-mode
+ultrasound is well covered by existing tools, but those tools assume a known
+setup: a single device, a consistent export, and a scale the operator supplies.
+This paper handles the case where none of that is available. The input is an
+unlabelled screenshot from one of six different ultrasound systems, with no
+metadata and no stated scale.
+\vspace{1em}
+
+\noindent Two findings may be of interest to your readers. The first is that two of the six
+systems export a horizontally resampled image, so the pixels are not square and
+any angle measured in pixel coordinates is biased by a fixed factor. That factor
+can be computed from the published transducer aperture, so the correction needs
+no labelled data. The second is that the conventional fascicle-length estimator,
+which extends a detected fragment until it meets both aponeuroses, carries a bias
+of $1/(1-\cot^{2}\gamma\tan^{2}h)$ that depends on how much the aponeuroses
+converge. Human raters do not reproduce that bias. Measuring against the bisector
+of the two aponeuroses removes the dependence, which is what allows one
+calibration constant to carry from a static benchmark to a dynamic sequence of a
+different muscle without refitting.
+\vspace{1em}
+
+\noindent On a 35-image benchmark measured independently by seven expert raters, the method
+scores 0.196 under the UMUD error formula. DL\_Track\_US scores 0.331 on the same
+images, SMA scores 0.409, and an individual expert rater scores 0.264 by
+leave-one-out. All automated methods are scored against the same consensus on the
+same images, using measurements published by the benchmark's own authors rather
+than re-implementations of my own.
+\vspace{1em}
+
+\noindent This manuscript is original, has not been published before, and is not under
+consideration anywhere else. I am the sole author. I have no conflicts of
+interest and the work had no external funding. The evaluation code, model weights
+and split manifests are publicly available.
+\vspace{1em}
+
+\noindent Thank you for considering it.
+\vspace{2em}
+
+\noindent Sincerely,
+\vspace{1.5em}
+
+\noindent \textbf{Colton Downing}\\
+University of Southern California\\
+Los Angeles, CA, USA\\
+cjdownin@usc.edu\\
+ORCID: 0009-0009-8874-1914
+\end{document}
