@@ -11,10 +11,11 @@
 % hyperref/url are unavailable in this TeX install; URLs render as plain text.
 \providecommand{\url}[1]{#1}
 
-% setspace and lineno are not in this TeX installation, so spacing is set
-% directly. Before submitting, compile on Overleaf and add:
-%   \usepackage{setspace}\usepackage{lineno}\doublespacing\linenumbers
-\renewcommand{\baselinestretch}{1.9}\normalsize
+\usepackage{setspace}
+\doublespacing
+% lineno is not installed here and CTAN's copy would not fetch. Line numbers are
+% a reviewer convenience, not a requirement. To add them, compile on Overleaf
+% and insert: \usepackage{lineno}\linenumbers
 
 \title{\textbf{Device-normalised geometry for muscle architecture\\
 measurement in B-mode ultrasound}}
