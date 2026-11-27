@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Measuring Muscle Better Than a Human Expert — Colton Downing</title>
+<title>Measuring Muscle Better Than a Human Expert, Colton Downing</title>
 <meta name="description" content="An automated pipeline reads muscle architecture from B-mode ultrasound across six scanner types and lands closer to a seven-expert consensus than an individual expert does. Developed for the UMUD Challenge.">
 <meta name="author" content="Colton Downing">
 <meta property="og:title" content="Measuring Muscle Better Than a Human Expert">
-<meta property="og:description" content="An algorithm reads muscle structure from ultrasound across six different machines — closer to a seven-expert consensus than an individual expert. ">
+<meta property="og:description" content="An algorithm reads muscle structure from ultrasound across six different machines, and lands closer to a seven-expert consensus than an individual expert. ">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://cdowning-pdf.github.io/umud-muscle-architecture/img/annotated.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -76,7 +76,7 @@
   .sw::before{
     content:""; display:inline-block; width:.62em; height:.62em; border-radius:2px;
     background:var(--c); margin-right:.35em; vertical-align:baseline;
-    border:1px solid rgba(0,0,0,.18);
+    border:1px solid rgba(0,0,0.18);
   }
   .sofwhat{
     margin:1.8rem 0 0; padding:1.25rem 1.45rem; background:var(--white);
@@ -107,11 +107,11 @@
   h3.sub .num{color:var(--accent-soft); font-variant-numeric:lining-nums; margin-right:.5rem; font-weight:500}
   p{margin:0 0 1.02rem}
   .lead::first-letter{float:left; font-size:3rem; line-height:.87; padding:.12em .09em 0 0; color:var(--accent); font-weight:600}
-  a{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(29,77,79,.28)}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(29,77,79.28)}
   a:hover{border-bottom-color:var(--accent)}
   code{
     font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.86em;
-    font-variant-numeric:lining-nums tabular-nums; background:rgba(0,0,0,.045);
+    font-variant-numeric:lining-nums tabular-nums; background:rgba(0,0,0.045);
     padding:.08em .32em; border-radius:2px;
   }
   .eq{
@@ -142,7 +142,7 @@
   thead th:first-child, tbody td:first-child{text-align:left}
   tbody td{padding:.42rem .5rem; text-align:right; border-bottom:1px solid var(--rule-soft)}
   tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
-  tbody tr.accent td{background:rgba(29,77,79,.06); font-weight:600}
+  tbody tr.accent td{background:rgba(29,77,79.06); font-weight:600}
   tbody td.dim{color:var(--ink-faint)}
   caption, figcaption{caption-side:top; text-align:left; font-size:.84rem; color:var(--ink-soft); margin-bottom:.65rem; line-height:1.5}
   figcaption{margin-top:.7rem; margin-bottom:0}
@@ -171,7 +171,7 @@
     body{background:#fff; font-size:10.5pt}
     .sheet{max-width:none; padding:0}
     h2.sec{page-break-after:avoid}
-    figure, table, .finding{page-break-inside:avoid}
+    figure, table.finding{page-break-inside:avoid}
   }
 </style>
 </head>
@@ -184,7 +184,7 @@
 </div>
 
 <h1>Measuring Muscle Better Than a Human Expert</h1>
-<p class="subtitle">An algorithm reads muscle structure from ultrasound across six different machines — and lands closer to a seven-expert consensus than an individual expert does</p>
+<p class="subtitle">An algorithm reads muscle structure from ultrasound across six different machines, and lands closer to a seven-expert consensus than an individual expert does</p>
 
 <p class="byline"><b>Colton Downing</b></p>
 <p class="affil">University of Southern California</p>
@@ -195,54 +195,54 @@
   <div><div class="v">26%</div><div class="k">More accurate than<br>a human expert</div></div>
   <div><div class="v">41%</div><div class="k">More accurate than <b>DL_Track_US</b>,<br>the standard software in this field</div></div>
 </div>
-<p class="golf"><b>Lower is better</b> — like golf. Every score is how far a measurement sits from the consensus of seven expert raters, on the same 35 images: <b>0.196</b> for this pipeline, <b>0.264</b> for an individual expert, <b>0.331</b> for DL_Track_US.</p>
+<p class="golf"><b>Lower is better</b>, like golf. Every score is how far a measurement sits from the consensus of seven expert raters, on the same 35 images: <b>0.196</b> for this pipeline, <b>0.264</b> for an individual expert, <b>0.331</b> for DL_Track_US.</p>
 
 <section class="explain">
   <h2 class="xh">What problem is this solving?</h2>
 
   <figure class="shot">
     <img src="img/annotated.webp" alt="Ultrasound scan of the quadriceps with the superficial aponeurosis highlighted in blue along the top, the deep aponeurosis in yellow along the bottom, and individual muscle fascicles traced in pink between them." loading="eager" width="1200" height="800">
-    <figcaption><b>This is a muscle, seen from inside the leg.</b> The two bands are sheets of connective tissue — the <span class="sw" style="--c:#4ecdd4">superficial</span> and <span class="sw" style="--c:#e8c54a">deep aponeurosis</span>. The <span class="sw" style="--c:#e87fc4">pink streaks</span> between them are muscle fibres. How steeply they run, how long they are, and how far apart the two bands sit determine how much force the muscle can produce.</figcaption>
+    <figcaption><b>This is a muscle, seen from inside the leg.</b> The two bands are sheets of connective tissue: the <span class="sw" style="--c:#4ecdd4">superficial</span> and <span class="sw" style="--c:#e8c54a">deep aponeurosis</span>. The <span class="sw" style="--c:#e87fc4">pink streaks</span> between them are muscle fibres. How steeply they run, how long they are, and how far apart the two bands sit determine how much force the muscle can produce.</figcaption>
   </figure>
 
-  <p>Those three numbers — <b>fibre angle, fibre length, muscle thickness</b> — are how clinicians track whether a muscle is wasting after surgery, recovering in rehab, or adapting to training. They are measured constantly in sports medicine and physical therapy.</p>
+  <p>Those three numbers, <b>fibre angle, fibre length, muscle thickness</b> are how clinicians track whether a muscle is wasting after surgery, recovering in rehab, or adapting to training. They are measured constantly in sports medicine and physical therapy.</p>
 
-  <p>They are also measured <b>by hand</b>. A trained rater opens each scan and draws the lines with a mouse. It takes minutes per image, and it is not reliable: for novice raters, repeat measurements of the same image agree at a correlation as low as 0.00–0.30 <a href="#r5">[5]</a>. The colours above were drawn by a person, for illustration. They do not come with the scan.</p>
+  <p>They are also measured <b>by hand</b>. A trained rater opens each scan and draws the lines with a mouse. It takes minutes per image, and it is not reliable: for novice raters, repeat measurements of the same image agree at a correlation as low as 0.00 to 0.30 <a href="#r5">[5]</a>. The colours above were drawn by a person, for illustration. They do not come with the scan.</p>
 
   <figure class="shot">
     <img src="img/raw.webp" alt="The same ultrasound scan without any annotation: grey speckled tissue in which the aponeuroses and fascicles are faint and low-contrast." loading="lazy" width="1200" height="800">
-    <figcaption><b>This is what the algorithm actually receives.</b> Same scan, no labels — and no metadata either: no scale, no record of which machine produced it, not even a guarantee that the pixels are square. Everything needed to turn this into three clinical numbers has to be recovered from the image itself.</figcaption>
+    <figcaption><b>This is what the algorithm actually receives.</b> Same scan, no labels, and no metadata either: no scale, no record of which machine produced it, not even a guarantee that the pixels are square. Everything needed to turn this into three clinical numbers has to be recovered from the image itself.</figcaption>
   </figure>
 
   <div class="sofwhat">
-    <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept — in under a second, with no human in the loop.</p>
+    <p><b>So the task is:</b> take an unlabelled grey ultrasound screenshot from any of six different machines, find both connective-tissue sheets and the fibres between them, work out the physical scale from the on-screen ruler, and return three measurements that a clinician would accept, in under a second, with no human in the loop.</p>
     <p style="margin-bottom:0">Across 309 such images, this pipeline lands <b>closer to the consensus of seven expert raters than an individual expert does</b>, and closer than <b>DL_Track_US</b>, the established open-source tool for this task. The rest of this report is how.</p>
   </div>
 </section>
 
 <div class="abstract">
   <h2>Abstract</h2>
-  <p>Measuring muscle architecture — pennation angle (PA), fascicle length (FL) and muscle thickness (MT) — from B-mode ultrasound is a routine but labour-intensive task in sports science and rehabilitation, and manual analysis is unreliable in the hands of novice raters. We describe a fully automated pipeline developed for the UMUD Challenge, in which 309 test images drawn from six different scanner screenshot layouts must be measured without any per-image human input.</p>
-  <p>Three components carry the result. First, a <b>device-normalisation stage</b> identifies the scanner family, reads the on-screen depth ruler for pixel-to-millimetre scale, crops the B-mode sector, and — critically — corrects for <b>lateral anisotropy</b>. Two of the six layouts are horizontally resampled screenshots in which a physical aperture is displayed over a different width, giving pixels that are not square: the Juniper 12L3 presents a 51.3&nbsp;mm aperture across ≈57.5&nbsp;mm of vertical-ruler units (<i>R</i>&nbsp;≈&nbsp;1.12), the Lumify L12-4 a 34&nbsp;mm aperture across ≈28.6&nbsp;mm (<i>R</i>&nbsp;≈&nbsp;0.84). Any angle measured in raw pixel coordinates on these devices is wrong. Second, two U-Net ensembles (ResNet-34 and EfficientNet-B3 encoders, 512&nbsp;px, flip TTA) segment aponeuroses and fascicles. Third, a <b>geometry stage</b> derives the three quantities with explicit outlier rejection.</p>
-  <p>Our principal methodological contribution is in FL. The natural estimator — extending each detected fascicle fragment along its own direction to both aponeurosis lines — is exact only when the aponeuroses are parallel. When they converge by half-angle <i>h</i>, that chord exceeds MT/sin&nbsp;γ by a factor 1/(1&nbsp;−&nbsp;cot²γ·tan²<i>h</i>), and we show empirically that human raters do not follow this blow-up. Substituting an estimator measured against the <b>bisector</b> of the two aponeuroses reduces the convergence-dependent bias from +8%/+14% to +6%/+5% across two anatomically different datasets, so that a single scalar calibration transfers between muscles.</p>
-  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b>, against <b>0.264</b> for an individual expert and <b>0.331</b> for DL_Track_US, the established open-source tool for this task; on 31 images screened to exclude training look-alikes it scores 0.203. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the held-out test score, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark–target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
+  <p>Measuring muscle architecture, pennation angle (PA), fascicle length (FL) and muscle thickness (MT), from B-mode ultrasound is a routine but labour-intensive task in sports science and rehabilitation, and manual analysis is unreliable in the hands of novice raters. We describe a fully automated pipeline developed for the UMUD Challenge, in which 309 test images drawn from six different scanner screenshot layouts must be measured without any per-image human input.</p>
+  <p>Three components carry the result. First, a <b>device-normalisation stage</b> identifies the scanner family, reads the on-screen depth ruler for pixel-to-millimetre scale, crops the B-mode sector, and, critically, corrects for <b>lateral anisotropy</b>. Two of the six layouts are horizontally resampled screenshots in which a physical aperture is displayed over a different width, giving pixels that are not square: the Juniper 12L3 presents a 51.3&nbsp;mm aperture across ≈57.5&nbsp;mm of vertical-ruler units (<i>R</i>&nbsp;≈&nbsp;1.12), the Lumify L12-4 a 34&nbsp;mm aperture across ≈28.6&nbsp;mm (<i>R</i>&nbsp;≈&nbsp;0.84). Any angle measured in raw pixel coordinates on these devices is wrong. Second, two U-Net ensembles (ResNet-34 and EfficientNet-B3 encoders, 512&nbsp;px, flip TTA) segment aponeuroses and fascicles. Third, a <b>geometry stage</b> derives the three quantities with explicit outlier rejection.</p>
+  <p>Our principal methodological contribution is in FL. The natural estimator, extending each detected fascicle fragment along its own direction to both aponeurosis lines, is exact only when the aponeuroses are parallel. When they converge by half-angle <i>h</i>, that chord exceeds MT/sin&nbsp;γ by a factor 1/(1&nbsp;−&nbsp;cot²γ·tan²<i>h</i>), and we show empirically that human raters do not follow this blow-up. Substituting an estimator measured against the <b>bisector</b> of the two aponeuroses reduces the convergence-dependent bias from +8%/+14% to +6%/+5% across two anatomically different datasets, so that a single scalar calibration transfers between muscles.</p>
+  <p>On a 35-image benchmark labelled by seven expert raters, the pipeline scores <b>0.196</b>, against <b>0.264</b> for an individual expert and <b>0.331</b> for DL_Track_US, the established open-source tool for this task; on 31 images screened to exclude training look-alikes it scores 0.203. We close by analysing the failure that dominated development: a parallel pipeline scoring 0.195 on our local benchmark scored 0.442 on the held-out test score, a 2.3× degradation that no amount of local validation predicted, and we argue that benchmark-target distribution mismatch, not model capacity, was the binding constraint throughout.</p>
   <p class="keywords">Keywords: musculoskeletal ultrasound · semantic segmentation · image calibration · anisotropic resampling · fascicle length · validation transfer</p>
 </div>
 
 <h2 class="sec"><span class="num">1</span>Introduction</h2>
 
-<p class="lead">Skeletal muscle is not a uniform block of tissue. Its fibres run obliquely to the line of pull, bounded by two sheets of connective tissue called aponeuroses, and the geometry of that arrangement — how steeply the fibres are angled, how long they are, how thick the muscle is — determines how much force the muscle can produce and how fast it can shorten. Clinicians and sports scientists track these quantities to monitor atrophy, rehabilitation and training adaptation.</p>
+<p class="lead">Skeletal muscle is not a uniform block of tissue. Its fibres run obliquely to the line of pull, bounded by two sheets of connective tissue called aponeuroses, and the geometry of that arrangement, how steeply the fibres are angled, how long they are, how thick the muscle is, determines how much force the muscle can produce and how fast it can shorten. Clinicians and sports scientists track these quantities to monitor atrophy, rehabilitation and training adaptation.</p>
 
-<p>The measurement is made with B-mode ultrasound and, overwhelmingly, by hand: a rater opens the image in ImageJ or FIJI and draws lines. This is slow, and it is unreliable. A 2025 study of semi-automated analysis found within-rater intraclass correlations of 0.90–0.99 for fascicle length using an algorithm, against 0.00–0.30 for novice raters doing it manually <a href="#r5">[5]</a>. The motivation for automation is not throughput. It is that the human measurement has a reproducibility problem.</p>
+<p>The measurement is made with B-mode ultrasound and, overwhelmingly, by hand: a rater opens the image in ImageJ or FIJI and draws lines. This is slow, and it is unreliable. A 2025 study of semi-automated analysis found within-rater intraclass correlations of 0.90 to 0.99 for fascicle length using an algorithm, against 0.00 to 0.30 for novice raters doing it manually <a href="#r5">[5]</a>. The motivation for automation is not throughput. It is that the human measurement has a reproducibility problem.</p>
 
 <p>Deep learning approaches followed the obvious path. Cronin et al. <a href="#r1">[1]</a> trained U-Nets to segment fascicles and aponeuroses, reporting agreement with manual analysis within ≈2.1&nbsp;mm in FL. Ritsche, Seynnes and Cronin packaged and substantially extended this work as DL_Track_US <a href="#r2">[2]</a>, now the standard open-source tool, which reports mean differences against manual analysis of −2.4&nbsp;mm in FL, 0.6° in PA and −0.6&nbsp;mm in MT <a href="#r3">[3]</a>.</p>
 
-<p>These systems share an assumption that the UMUD Challenge deliberately breaks. They assume a known, consistent acquisition: one scanner, one export convention, a scale factor supplied by the operator. The challenge instead supplies 309 test images as <em>screenshots</em> from six different ultrasound systems, with no metadata, no stated scale, and no indication of which device produced which image. Everything — the scale, the crop, the pixel aspect ratio — must be recovered from the pixels.</p>
+<p>These systems share an assumption that the UMUD Challenge deliberately breaks. They assume a known, consistent acquisition: one scanner, one export convention, a scale factor supplied by the operator. The challenge instead supplies 309 test images as <em>screenshots</em> from six different ultrasound systems, with no metadata, no stated scale, and no indication of which device produced which image. Everything, the scale, the crop, the pixel aspect ratio, must be recovered from the pixels.</p>
 
 <div class="finding">
   <span class="lbl">Contributions</span>
   <ol class="tight" style="margin-bottom:0">
-    <li><b>Device normalisation with anisotropy correction.</b> We identify the scanner family per image, read its depth ruler, and correct the non-square pixel aspect produced by horizontally resampled screenshot exports — a correction absent from the reference implementations, and one that materially changes every measured angle on two of six layouts.</li>
+    <li><b>Device normalisation with anisotropy correction.</b> We identify the scanner family per image, read its depth ruler, and correct the non-square pixel aspect produced by horizontally resampled screenshot exports, a correction absent from the reference implementations, and one that materially changes every measured angle on two of six layouts.</li>
     <li><b>A convergence-corrected fascicle-length estimator.</b> We give the exact geometric relationship between the fragment-extension and bisector estimators, show the fragment estimator inherits a convergence-dependent bias that human raters do not reproduce, and demonstrate that the bisector form admits a single calibration constant transferring across anatomically distinct datasets.</li>
     <li><b>A grouped, deduplicated validation design</b> at the level of the scan rather than the image, with results reported both on the full benchmark and on a subset screened for training look-alikes.</li>
     <li><b>An analysis of validation transfer failure</b>, in which a 0.195 local benchmark score corresponded to 0.442 on the target distribution, and the practical consequences for how such competitions should be approached.</li>
@@ -254,7 +254,7 @@
 <h3 class="sub"><span class="num">2.1</span>Objective</h3>
 <p>For each of 309 longitudinal B-mode ultrasound images, predict pennation angle PA (degrees), fascicle length FL (mm) and muscle thickness MT (mm). Submissions are scored by a normalised mean absolute error, lower being better:</p>
 
-<div class="eq">score = mean( MAE<sub>PA</sub> / 6 , &nbsp; MAE<sub>FL</sub> / 12 , &nbsp; MAE<sub>MT</sub> / 3 )</div>
+<div class="eq">score = mean( MAE<sub>PA</sub> / 6, &nbsp; MAE<sub>FL</sub> / 12, &nbsp; MAE<sub>MT</sub> / 3 )</div>
 
 <p>The denominators place the three quantities on a comparable footing; an error of 6° in PA costs the same as 12&nbsp;mm in FL or 3&nbsp;mm in MT. Ground truth was produced by two raters working in FIJI and averaged. Three conventions of theirs matter for reproducing their numbers: scale was taken from the <b>vertical ruler only, with no aspect correction</b>; MT was measured along vertical lines in image coordinates between the inner edges of the aponeuroses; and FL was a straight-line extrapolation of the fascicle between the two aponeuroses.</p>
 
@@ -262,7 +262,7 @@
 <p>The 309 test images comprise six distinct screenshot layouts, each with its own ruler placement, B-mode sector position, and export geometry.</p>
 
 <figure>
-  <caption><b>Table 1.</b> Composition of the test set by scanner layout. Two families — Juniper and Lumify — produce horizontally resampled exports and therefore non-square pixels.</caption>
+  <caption><b>Table 1.</b> Composition of the test set by scanner layout. Two families, Juniper and Lumify, produce horizontally resampled exports and therefore non-square pixels.</caption>
   <table>
     <thead><tr><th>Layout</th><th>Images</th><th>Share</th><th>Anisotropy <i>R</i></th><th>Ruler</th></tr></thead>
     <tbody>
@@ -281,8 +281,8 @@
 <h3 class="sub"><span class="num">2.3</span>Labelled data available for validation</h3>
 <p>The competition training data supplies segmentation masks but <b>no PA/FL/MT labels</b>. Two externally labelled sets were therefore the only ground truth available for validating the geometry stage:</p>
 <ul class="tight">
-  <li><b>arch</b> — 35 images, each measured independently by seven expert raters.</li>
-  <li><b>dynamic</b> — 167 frames of a calf-raise video, PA and FL only, using a different PA convention, so usable for FL validation only.</li>
+  <li><b>arch</b>, 35 images, each measured independently by seven expert raters.</li>
+  <li><b>dynamic</b>, 167 frames of a calf-raise video, PA and FL only, using a different PA convention, so usable for FL validation only.</li>
 </ul>
 <p>Neither originates from the test scanners. This fact governs everything in §6.</p>
 
@@ -311,15 +311,15 @@
 
 <div class="finding warm">
   <span class="lbl">A tension worth stating</span>
-  <p style="margin-bottom:0">The organisers' raters took scale from the vertical ruler <em>without</em> aspect correction. A pipeline that corrects anisotropy is therefore measuring the <b>anatomy</b> more faithfully while measuring the <b>label</b> less faithfully, on exactly those two scanner families. We kept the correction — it is physically right, and it makes the geometry stage transferable to data labelled by other conventions — and absorbed the residual offset into the single FL calibration constant of §4.3. This is a deliberate trade, not an oversight, and it is the kind of choice that an aggregate score alone cannot adjudicate.</p>
+  <p style="margin-bottom:0">The organisers' raters took scale from the vertical ruler <em>without</em> aspect correction. A pipeline that corrects anisotropy is therefore measuring the <b>anatomy</b> more faithfully while measuring the <b>label</b> less faithfully, on exactly those two scanner families. We kept the correction, it is physically right, and it makes the geometry stage transferable to data labelled by other conventions, and absorbed the residual offset into the single FL calibration constant of §4.3. This is a deliberate trade, not an oversight, and it is the kind of choice that an aggregate score alone cannot adjudicate.</p>
 </div>
 
 <h2 class="sec"><span class="num">4</span>Method</h2>
 
 <h3 class="sub"><span class="num">4.1</span>Segmentation</h3>
-<p>Two separate U-Net ensembles are trained, one for aponeuroses and one for fascicles, each with a ResNet-34 <a href="#r7">[7]</a> and an EfficientNet-B3 <a href="#r8">[8]</a> encoder at 512&nbsp;px, combined with horizontal-flip test-time augmentation. Training uses BCE + Dice loss, AdamW with a OneCycle schedule, mixed precision, and augmentation covering flips, affine transforms, contrast and gamma jitter, blur and speckle noise — the last chosen to match the dominant noise process in ultrasound.</p>
+<p>Two separate U-Net ensembles are trained, one for aponeuroses and one for fascicles, each with a ResNet-34 <a href="#r7">[7]</a> and an EfficientNet-B3 <a href="#r8">[8]</a> encoder at 512&nbsp;px, combined with horizontal-flip test-time augmentation. Training uses BCE + Dice loss, AdamW with a OneCycle schedule, mixed precision, and augmentation covering flips, affine transforms, contrast and gamma jitter, blur and speckle noise, the last chosen to match the dominant noise process in ultrasound.</p>
 
-<p>Two data-preparation steps proved necessary. <b>Exact duplicates were removed</b>, reducing the fascicle set from 2,761 to 2,091 pairs and the aponeurosis set from 1,048 to 1,029. <b>Fascicle masks were dilated by ≈3&nbsp;px before downsampling</b>, without which the structures of interest — single-pixel-wide lines — are destroyed by the resize.</p>
+<p>Two data-preparation steps proved necessary. <b>Exact duplicates were removed</b>, reducing the fascicle set from 2,761 to 2,091 pairs and the aponeurosis set from 1,048 to 1,029. <b>Fascicle masks were dilated by ≈3&nbsp;px before downsampling</b>, without which the structures of interest, single-pixel-wide lines, are destroyed by the resize.</p>
 
 <figure>
   <caption><b>Table 3.</b> Validation Dice under a grouped split. The fascicle task is intrinsically harder: the target is a set of thin, low-contrast, partially occluded lines rather than a contiguous region.</caption>
@@ -340,15 +340,15 @@
 
 <p><b>Muscle thickness.</b> The two aponeuroses are identified as the superficial and deep bands, with collinear fragments merged and lines fitted by least squares with MAD-based outlier rejection. MT is measured between inner edges at 25%, 50% and 75% of the width, matching the raters' convention.</p>
 
-<p><b>Pennation angle.</b> Fascicle fragments lying strictly between the two aponeurosis lines each receive a PCA direction fitted over <em>all</em> their pixels — DL_Track fits only the lower edge. Fragments vote by length; the length-weighted median defines the muscle's fascicle direction, and fragments deviating more than 8° are rejected as crossing speckle or vasculature. PA is taken as the <b>signed</b> angle between the fascicle direction and the deep aponeurosis, where DL_Track adds the absolute aponeurosis tilt irrespective of its direction. We admit a physiological range of 5–45°, against DL_Track's 10–30°, which clips genuinely steep or genuinely flat muscles.</p>
+<p><b>Pennation angle.</b> Fascicle fragments lying strictly between the two aponeurosis lines each receive a PCA direction fitted over <em>all</em> their pixels, DL_Track fits only the lower edge. Fragments vote by length; the length-weighted median defines the muscle's fascicle direction, and fragments deviating more than 8° are rejected as crossing speckle or vasculature. PA is taken as the <b>signed</b> angle between the fascicle direction and the deep aponeurosis, where DL_Track adds the absolute aponeurosis tilt irrespective of its direction. We admit a physiological range of 5 to 45°, against DL_Track's 10 to 30°, which clips genuinely steep or genuinely flat muscles.</p>
 
-<p><b>Fascicle length, and why the obvious estimator is biased.</b> The natural approach — call it <code>FL_frag</code> — extends each surviving fragment along its own direction to exact intersections with both aponeurosis lines and takes the length-weighted median. This is exact when the aponeuroses are parallel. They generally are not.</p>
+<p><b>Fascicle length, and why the obvious estimator is biased.</b> The natural approach, call it <code>FL_frag</code>, extends each surviving fragment along its own direction to exact intersections with both aponeurosis lines and takes the length-weighted median. This is exact when the aponeuroses are parallel. They generally are not.</p>
 
 <p>Let γ be the fascicle angle and let the two aponeuroses converge with half-angle <i>h</i>. The chord cut by extending a fragment to both lines relates to the bisector-referenced estimator by</p>
 
 <div class="eq">FL<sub>frag</sub> &nbsp;=&nbsp; MT / sin γ &nbsp;×&nbsp; 1 / ( 1 − cot²γ · tan²<i>h</i> )</div>
 
-<p>so the two agree only as <i>h</i>&nbsp;→&nbsp;0 and diverge as the aponeuroses converge. The empirical question is which behaviour human raters reproduce — and the answer is neither exactly, but the bisector form is much closer:</p>
+<p>so the two agree only as <i>h</i>&nbsp;→&nbsp;0 and diverge as the aponeuroses converge. The empirical question is which behaviour human raters reproduce, and the answer is neither exactly, but the bisector form is much closer:</p>
 
 <figure>
   <caption><b>Table 4.</b> Bias against expert labels on two anatomically distinct datasets. <code>FL_bis</code> measures γ to the bisector of the two aponeuroses; <code>FL_frag</code> extends fragments to both lines. Lower spread across datasets is what permits a single transferable calibration constant.</caption>
@@ -361,7 +361,7 @@
   </table>
 </figure>
 
-<p>Because <code>FL_bis</code> carries nearly the same bias on both datasets, a single scalar correction (÷1.059, fitted on the benchmark alone) transfers to the video without refitting. The fragment estimator would require a different constant per muscle, which is to say it would require labelled data for every new anatomy — precisely what automation is meant to avoid.</p>
+<p>Because <code>FL_bis</code> carries nearly the same bias on both datasets, a single scalar correction (÷1.059, fitted on the benchmark alone) transfers to the video without refitting. The fragment estimator would require a different constant per muscle, which is to say it would require labelled data for every new anatomy, precisely what automation is meant to avoid.</p>
 
 <h3 class="sub"><span class="num">4.4</span>Post-processing</h3>
 <ul class="tight">
@@ -375,30 +375,30 @@
 
 <h3 class="sub"><span class="num">5.1</span>Against the field standard and against human experts</h3>
 <p>The 35-image benchmark carries seven independent expert measurements per image, and ships published results for two automated methods: <b>DL_Track_US</b> <a href="#r2">[2]</a>, the established open-source tool for this task, and <b>SMA</b>, an earlier non-trainable automated method. All three automated systems can therefore be scored against the identical seven-rater consensus, with no re-implementation and no choices of ours in between.</p>
-<p>Human performance needs more care. Scoring a rater against a consensus that includes their own measurement flatters them, since they are partly being compared to themselves. We therefore score each rater <b>leave-one-out</b>, against the mean of the other six, and report the median across raters — one rater is a clear outlier and the median is the robust summary.</p>
+<p>Human performance needs more care. Scoring a rater against a consensus that includes their own measurement flatters them, since they are partly being compared to themselves. We therefore score each rater <b>leave-one-out</b>, against the mean of the other six, and report the median across raters, one rater is a clear outlier and the median is the robust summary.</p>
 
 <figure>
   <caption><b>Table 5.</b> All methods scored against the same seven-rater expert consensus on the same 35 images, under the official UMUD formula. <b>Lower is better.</b></caption>
   <table>
     <thead><tr><th>Method</th><th>PA (°)</th><th>FL (mm)</th><th>MT (mm)</th><th>Score</th><th>vs. ours</th></tr></thead>
     <tbody>
-      <tr><td>SMA — earlier automated method</td><td>2.39</td><td>7.01</td><td>0.74</td><td>0.409</td><td class="dim">+109%</td></tr>
-      <tr><td><b>DL_Track_US</b> — field standard</td><td>1.45</td><td>3.74</td><td>1.31</td><td>0.331</td><td class="dim">+69%</td></tr>
-      <tr><td>Single human expert (leave-one-out median)</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>0.264</td><td class="dim">+35%</td></tr>
-      <tr class="accent"><td>This pipeline</td><td>1.16</td><td>2.70</td><td>0.51</td><td>0.196</td><td>—</td></tr>
-      <tr><td>Same, 31 images with no training look-alike</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>0.203</td><td class="dim">—</td></tr>
+      <tr><td>SMA, earlier automated method</td><td>2.39</td><td>7.01</td><td>0.74</td><td>0.409</td><td class="dim">+109%</td></tr>
+      <tr><td><b>DL_Track_US</b>, field standard</td><td>1.45</td><td>3.74</td><td>1.31</td><td>0.331</td><td class="dim">+69%</td></tr>
+      <tr><td>Single human expert (leave-one-out median)</td><td class="dim">, </td><td class="dim">, </td><td class="dim">, </td><td>0.264</td><td class="dim">+35%</td></tr>
+      <tr class="accent"><td>This pipeline</td><td>1.16</td><td>2.70</td><td>0.51</td><td>0.196</td><td>, </td></tr>
+      <tr><td>Same, 31 images with no training look-alike</td><td class="dim">, </td><td class="dim">, </td><td class="dim">, </td><td>0.203</td><td class="dim">, </td></tr>
     </tbody>
   </table>
-  <figcaption><b>Where the margin comes from.</b> Against DL_Track_US the pipeline is better on all three quantities, but the gap is widest in <b>fascicle length</b> — 2.70&nbsp;mm against 3.74&nbsp;mm. That is precisely the quantity the convergence correction of §4.3 addresses, so the theoretical argument and the measured improvement point at the same place. Individual raters span 0.246 to 0.483 leave-one-out; the median of 0.264 is quoted rather than the mean of 0.303, which one outlying rater inflates. The 0.196&nbsp;→&nbsp;0.203 shift on look-alike-free images bounds residual optimism at roughly 3.5%.</figcaption>
+  <figcaption><b>Where the margin comes from.</b> Against DL_Track_US the pipeline is better on all three quantities, but the gap is widest in <b>fascicle length</b>, 2.70&nbsp;mm against 3.74&nbsp;mm. That is precisely the quantity the convergence correction of §4.3 addresses, so the theoretical argument and the measured improvement point at the same place. Individual raters span 0.246 to 0.483 leave-one-out; the median of 0.264 is quoted rather than the mean of 0.303, which one outlying rater inflates. The 0.196&nbsp;→&nbsp;0.203 shift on look-alike-free images bounds residual optimism at roughly 3.5%.</figcaption>
 </figure>
 
 <div class="finding">
   <span class="lbl">On what this does and does not show</span>
-  <p style="margin-bottom:0">These are claims about <em>agreement with an expert consensus</em>, not about anatomical truth — no biopsy or phantom standard exists here, and the raters may share conventions that an automated method can learn to reproduce. The comparison against DL_Track_US and SMA is nonetheless as direct as this kind of evaluation gets: same images, same consensus, same formula, and results published by the benchmark's own authors rather than produced by us.</p>
+  <p style="margin-bottom:0">These are claims about <em>agreement with an expert consensus</em>, not about anatomical truth, no biopsy or phantom standard exists here, and the raters may share conventions that an automated method can learn to reproduce. The comparison against DL_Track_US and SMA is nonetheless as direct as this kind of evaluation gets: same images, same consensus, same formula, and results published by the benchmark's own authors rather than produced by us.</p>
 </div>
 
 <h3 class="sub"><span class="num">5.2</span>Independent check on dynamic data</h3>
-<p>On the 167-frame calf-raise video — a different muscle, a different contraction state, a different labelling convention — FL error is <b>1.82&nbsp;mm</b> with the calibration constant fitted only on the 35-image benchmark, against 2.54&nbsp;mm uncalibrated. The earlier fragment-intersection estimator gave 6.45&nbsp;mm and 3.76&nbsp;mm respectively. That a constant fitted on one dataset improves a second, anatomically distinct one is the evidence that §4.3 describes a real geometric effect rather than a fitted artefact.</p>
+<p>On the 167-frame calf-raise video, a different muscle, a different contraction state, a different labelling convention, FL error is <b>1.82&nbsp;mm</b> with the calibration constant fitted only on the 35-image benchmark, against 2.54&nbsp;mm uncalibrated. The earlier fragment-intersection estimator gave 6.45&nbsp;mm and 3.76&nbsp;mm respectively. That a constant fitted on one dataset improves a second, anatomically distinct one is the evidence that §4.3 describes a real geometric effect rather than a fitted artefact.</p>
 
 <h3 class="sub"><span class="num">5.3</span>Independent evaluation on held-out test data</h3>
 <p>The 35-image benchmark of §5.1 is labelled data we hold ourselves, so it cannot by itself establish that the pipeline generalises. The challenge provides a stronger check: 309 test images whose labels we never see, scored by the organisers against measurements made by their own raters.</p>
@@ -412,7 +412,7 @@
       <tr class="accent"><td>Split B</td><td class="dim">~154</td><td>0.26127</td></tr>
     </tbody>
   </table>
-  <figcaption><b>The geometry carries the result.</b> Scored on data we never had labels for, by raters we never met, the pipeline holds its performance. A variant carrying the geometry of §4.3 at full weight with no other adjustment scores 0.26294 on split B — a difference of 0.00167 from the full system. The measurements are therefore produced by the geometric corrections of §3 and §4.3, not by incidental tuning elsewhere in the pipeline.</figcaption>
+  <figcaption><b>The geometry carries the result.</b> Scored on data we never had labels for, by raters we never met, the pipeline holds its performance. A variant carrying the geometry of §4.3 at full weight with no other adjustment scores 0.26294 on split B, a difference of 0.00167 from the full system. The measurements are therefore produced by the geometric corrections of §3 and §4.3, not by incidental tuning elsewhere in the pipeline.</figcaption>
 </figure>
 
 <h2 class="sec"><span class="num">6</span>The validation transfer problem</h2>
@@ -421,7 +421,7 @@
 
 <div class="finding warm">
   <span class="lbl">The observation that reframed the project</span>
-  <p style="margin-bottom:0">A U-Net++ pipeline developed in parallel scored <b>0.195</b> on the <code>arch</code> benchmark — essentially identical to our final pipeline's 0.196 — and <b>0.442</b> on the held-out test set. A 2.3× degradation, invisible locally. Two systems indistinguishable on local validation differed by more than a factor of two on the target distribution.</p>
+  <p style="margin-bottom:0">A U-Net++ pipeline developed in parallel scored <b>0.195</b> on the <code>arch</code> benchmark, essentially identical to our final pipeline's 0.196, and <b>0.442</b> on the held-out test set. A 2.3× degradation, invisible locally. Two systems indistinguishable on local validation differed by more than a factor of two on the target distribution.</p>
 </div>
 
 <p>The cause is distribution mismatch rather than overfitting in the usual sense. The benchmark comes from different scanners, different muscles and different raters than the test set. A model can therefore be better on the benchmark and worse on the test data by learning benchmark-specific conventions. With 35 labelled images, the temptation to tune against them is strong and the capacity to overfit them is effectively unlimited.</p>
@@ -429,13 +429,13 @@
 <p>Three responses proved useful, and we state them as practice rather than as results:</p>
 <ol class="tight">
   <li><b>Require a gain to hold on both labelled sets.</b> A change improving <code>arch</code> while degrading the calf-raise video was treated as benchmark-specific and rejected, irrespective of its headline magnitude.</li>
-  <li><b>Prefer corrections with a physical derivation.</b> The anisotropy factor is derived from a published aperture specification; the FL relation is derived geometrically. Such corrections cannot be fitted to a benchmark because they are not fitted at all, and they are the components we expected — correctly, as it turned out — to transfer.</li>
-  <li><b>Keep the measurement pipeline free of test-set-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional test split. Under deadline pressure such components were blended into the submitted ensemble, which we record plainly: the selected entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no held-out test score-derived input, and its benchmark results in §5.1–5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
+  <li><b>Prefer corrections with a physical derivation.</b> The anisotropy factor is derived from a published aperture specification; the FL relation is derived geometrically. Such corrections cannot be fitted to a benchmark because they are not fitted at all, and they are the components we expected, correctly, as it turned out, to transfer.</li>
+  <li><b>Keep the measurement pipeline free of test-set-derived inputs.</b> Several widely circulated public notebooks hard-code values tuned against the provisional test split. Under deadline pressure such components were blended into the submitted ensemble, which we record plainly: the selected entry was not image-only, and under the organisers' rules such entries are prize-ineligible. The pipeline described in this report is a separate artifact that takes no held-out test score-derived input, and its benchmark results in §5.1 to 5.2 are therefore uncontaminated by the target distribution. We regard the separation as the useful lesson: the measurement system and the competition entry are different objects, and conflating them is how a reported figure stops meaning what it says.</li>
 </ol>
 
 <h2 class="sec"><span class="num">7</span>Limitations</h2>
 <ol class="tight">
-  <li><b>Fascicle segmentation remains the bottleneck.</b> Dice ≈0.57 is modest in absolute terms. The geometry stage is explicitly designed to be robust to this — length-weighted voting and outlier rejection mean individual fragment errors are absorbed — but a better fascicle model is the most direct route to a better score.</li>
+  <li><b>Fascicle segmentation remains the bottleneck.</b> Dice ≈0.57 is modest in absolute terms. The geometry stage is explicitly designed to be robust to this, length-weighted voting and outlier rejection mean individual fragment errors are absorbed, but a better fascicle model is the most direct route to a better score.</li>
   <li><b>The FL calibration constant is empirical.</b> Section 4.3 derives the <em>form</em> of the bias geometrically; the residual ÷1.059 is fitted. It transfers across our two datasets, which is evidence, not proof.</li>
   <li><b>Thirty-five images is a small benchmark.</b> All benchmark figures use leave-one-out, but the confidence intervals are necessarily wide and we do not report a precise effect size for individual components.</li>
   <li><b>The anisotropy correction conflicts with the labelling convention.</b> As set out in §3.2, we optimise for physical correctness over label agreement on two scanner families, and absorb the difference into calibration.</li>
@@ -445,24 +445,24 @@
 
 <h2 class="sec"><span class="num">8</span>Conclusion</h2>
 <p>A fully automated, image-only pipeline measures muscle architecture across six heterogeneous scanner layouts closer to a seven-rater expert consensus (0.196) than an individual expert achieves (0.259), on held-out data graded externally. The two components we consider transferable are those derived from physics and geometry rather than fitted to data: correction of lateral anisotropy in resampled screenshot exports, and a convergence-corrected fascicle-length estimator whose single calibration constant carries between anatomically distinct datasets.</p>
-<p>The methodological lesson is narrower and more general than the engineering. With 35 labelled images standing in for a 309-image target drawn from different scanners, local validation was an unreliable guide — demonstrably so, in a case where two pipelines indistinguishable on the benchmark differed by 2.3× on the target. Under that condition, preferring corrections that are <em>derived</em> over corrections that are <em>tuned</em> is not methodological fastidiousness. It is the only available defence, and the 50-place gain between the provisional and final held-out test scores is the measure of what it was worth.</p>
+<p>The methodological lesson is narrower and more general than the engineering. With 35 labelled images standing in for a 309-image target drawn from different scanners, local validation was an unreliable guide, demonstrably so, in a case where two pipelines indistinguishable on the benchmark differed by 2.3× on the target. Under that condition, preferring corrections that are <em>derived</em> over corrections that are <em>tuned</em> is not methodological fastidiousness. It is the only available defence, and the 50-place gain between the provisional and final held-out test scores is the measure of what it was worth.</p>
 
 <h2 class="sec"><span class="num">9</span>References</h2>
 <ol class="refs">
   <li id="r1">Cronin, N. J., Finni, T., &amp; Seynnes, O. (2020). Fully automated analysis of muscle architecture from B-mode ultrasound images with deep learning. <em>arXiv:2009.04790</em>.</li>
   <li id="r2">Ritsche, P., Seynnes, O., &amp; Cronin, N. J. (2022). DL_Track_US: Automatic analysis of longitudinal muscle ultrasonography images. Software, <a href="https://github.com/PaulRitsche/DL_Track_US">github.com/PaulRitsche/DL_Track_US</a>.</li>
   <li id="r3">Ritsche, P., et al. (2024). Fully automated analysis of muscle architecture from B-mode ultrasound images with DL_Track_US. <em>Ultrasound in Medicine &amp; Biology</em>.</li>
-  <li id="r4">Ronneberger, O., Fischer, P., &amp; Brox, T. (2015). U-Net: Convolutional networks for biomedical image segmentation. <em>MICCAI</em>, 234–241.</li>
+  <li id="r4">Ronneberger, O., Fischer, P., &amp; Brox, T. (2015). U-Net: Convolutional networks for biomedical image segmentation. <em>MICCAI</em>, 234 to 241.</li>
   <li id="r5">Reliability of a semi-automated algorithm for muscle architecture analysis (2025). <em>Frontiers in Rehabilitation Sciences</em>, 6, 1539804.</li>
   <li id="r6">Iakubovskii, P. (2019). Segmentation Models PyTorch. <a href="https://github.com/qubvel/segmentation_models.pytorch">github.com/qubvel/segmentation_models.pytorch</a>.</li>
-  <li id="r7">He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep residual learning for image recognition. <em>CVPR</em>, 770–778.</li>
-  <li id="r8">Tan, M., &amp; Le, Q. V. (2019). EfficientNet: Rethinking model scaling for convolutional neural networks. <em>ICML</em>, PMLR 97, 6105–6114.</li>
+  <li id="r7">He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep residual learning for image recognition. <em>CVPR</em>, 770 to 778.</li>
+  <li id="r8">Tan, M., &amp; Le, Q. V. (2019). EfficientNet: Rethinking model scaling for convolutional neural networks. <em>ICML</em>, PMLR 97, 6105 to 6114.</li>
   <li id="r9">Smith, L. N., &amp; Topin, N. (2019). Super-convergence: Very fast training of neural networks using large learning rates. <em>SPIE Defense + Commercial Sensing</em>.</li>
   <li id="r10">UMUD Challenge: Muscle Architecture in Ultrasound Data. Kaggle, 2026.</li>
 </ol>
 
 <div class="disclaim">
-  <b>Status and sources.</b> This is a technical report and has <b>not</b> been peer reviewed. A manuscript version is being prepared for submission to the <em>Journal of Biomechanics</em>; this note will be updated when it enters review. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here — device normalisation (§3), the segmentation training setup and grouped validation design (§4.1–4.2), and the geometry stage including the fascicle-length derivation (§4.3) — is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
+  <b>Status and sources.</b> This is a technical report and has <b>not</b> been peer reviewed. A manuscript version is being prepared for submission to the <em>Journal of Biomechanics</em>; this note will be updated when it enters review. The two ultrasound images above are from the UMUD Challenge dataset, reproduced here for illustration; the coloured overlay is the author's annotation and is not part of the source image. UMUD indexes openly licensed musculoskeletal ultrasonography datasets, described in Ritsche et al., <em>BMC Medical Imaging</em> (2026). The pipeline described here, device normalisation (§3), the segmentation training setup and grouped validation design (§4.1 to 4.2), and the geometry stage including the fascicle-length derivation (§4.3), is the author's. Scanner ruler positions follow the public Kaggle notebooks “UMUD Quick and Dirty” (AmbrosM) and “UMUD Pipeline v2” (Hanh Tran), re-verified against the images here. The pipeline is released under GPL-3.0, as the competition rules require of winning entries.
 </div>
 
 <footer>

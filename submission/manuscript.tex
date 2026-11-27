@@ -1,5 +1,5 @@
 % Journal of Biomechanics - submission manuscript
-% Double-spaced with continuous line numbers, per the Guide for Authors.
+% Double-spaced. Add lineno on Overleaf before submitting.
 \documentclass[12pt]{article}
 
 \usepackage[letterpaper,margin=1in]{geometry}
@@ -11,9 +11,9 @@
 % hyperref/url are unavailable in this TeX install; URLs render as plain text.
 \providecommand{\url}[1]{#1}
 
-% setspace/lineno/caption are not in this TeX installation; double spacing is
-% set directly. Line numbers must be enabled before submission (Overleaf has
-% lineno): add \usepackage{lineno} and \linenumbers to this preamble.
+% setspace and lineno are not in this TeX installation, so spacing is set
+% directly. Before submitting, compile on Overleaf and add:
+%   \usepackage{setspace}\usepackage{lineno}\doublespacing\linenumbers
 \renewcommand{\baselinestretch}{1.9}\normalsize
 
 \title{\textbf{Device-normalised geometry for muscle architecture\\
@@ -25,7 +25,7 @@ measurement in B-mode ultrasound}}
 \begin{document}
 \maketitle
 
-\noindent\textbf{Word count (Introduction through Discussion):} approximately 2{,}900\\
+\noindent\textbf{Word count (Introduction through Discussion):} approximately 1{,}900\\
 \textbf{Conflict of interest:} none declared.
 
 \vspace{1em}
@@ -34,37 +34,35 @@ measurement in B-mode ultrasound}}
 
 \section*{Abstract}
 
-Automated estimation of muscle architecture from B-mode ultrasound is
-established, but existing tools assume a known and consistent acquisition: one
-device, one export convention, and an operator-supplied spatial scale. We
-address the case where none of that holds. Given only unlabelled screenshots
-from six different ultrasound systems, with no metadata and no stated scale, we
-recover pennation angle (PA), fascicle length (FL) and muscle thickness (MT)
-entirely from the image.
+Tools that measure muscle architecture from B-mode ultrasound usually assume a
+known setup: one scanner, one export convention, and a scale the operator types
+in. This paper deals with the case where none of that is available. The input is
+an unlabelled screenshot from one of six different ultrasound systems, with no
+metadata and no stated scale, and pennation angle (PA), fascicle length (FL) and
+muscle thickness (MT) have to come out of the pixels alone.
 
-Two corrections carry the result, and both are derived rather than fitted.
-First, two of the six screenshot layouts are horizontally resampled exports in
-which a transducer aperture is displayed across a width inconsistent with the
-depth axis, so image pixels are not square; angles measured in pixel
-coordinates on those devices are systematically wrong. We compute the aspect
-ratio from published aperture specifications (Juniper 12L3, $R \approx 1.12$;
-Lumify L12-4, $R \approx 0.84$) and resample to square physical pixels before
-any geometry is evaluated. Second, the conventional fascicle-length estimator,
-which extends a detected fascicle fragment to both aponeurosis lines, is exact
-only when the aponeuroses are parallel. When they converge with half-angle $h$,
-that chord exceeds $\mathrm{MT}/\sin\gamma$ by a factor
-$1/(1-\cot^{2}\gamma\tan^{2}h)$. We show empirically that expert raters do not
-reproduce this convergence-dependent inflation, and that a bisector-referenced
-estimator reduces the bias spread across two anatomically distinct datasets
-from six percentage points to one, permitting a single scalar calibration to
-transfer between muscles.
+Two corrections do most of the work, and both are derived rather than fitted.
+The first concerns pixel shape. Two of the six layouts export a horizontally
+resampled image, so the pixels are not square, and any angle measured in pixel
+coordinates on those devices is wrong by a fixed factor. That factor can be
+computed from the published transducer aperture (Juniper 12L3, $R \approx 1.12$;
+Lumify L12-4, $R \approx 0.84$), so I resample to square physical pixels before
+measuring anything. The second concerns fascicle length. The usual estimator
+extends a detected fascicle fragment until it meets both aponeuroses, which is
+exact only when the aponeuroses are parallel. When they converge with half-angle
+$h$, that chord is longer than $\mathrm{MT}/\sin\gamma$ by a factor
+$1/(1-\cot^{2}\gamma\tan^{2}h)$. Expert raters do not reproduce that inflation.
+Measuring the angle to the bisector of the two aponeuroses instead removes the
+dependence on convergence, which drops the spread in bias across two different
+muscles from six percentage points to one and lets a single calibration constant
+carry between them.
 
-On a 35-image benchmark with seven independent expert raters, the method scores
-0.196 under the UMUD error formula against the seven-rater consensus, compared
-with 0.331 for DL\_Track\_US, 0.409 for SMA, and a leave-one-out median of 0.264
-for an individual expert rater. On an independent 167-frame dynamic sequence of
-a different muscle, fascicle-length error is 1.82~mm using a calibration
-constant fitted only on the static benchmark.
+On a 35-image benchmark measured independently by seven expert raters, the
+method scores 0.196 under the UMUD error formula against the seven-rater
+consensus. DL\_Track\_US scores 0.331 on the same images, SMA scores 0.409, and
+an individual expert rater scores 0.264 by leave-one-out. On a separate
+167-frame dynamic sequence of a different muscle, fascicle-length error is
+1.82~mm using a constant fitted only on the static benchmark.
 
 \vspace{0.5em}
 \noindent\textbf{Keywords:} musculoskeletal ultrasound; muscle architecture;
@@ -73,170 +71,176 @@ fascicle length; pennation angle; image calibration
 \newpage
 \section{Introduction}
 
-Muscle architecture --- the pennation angle of fascicles relative to the line of
-action, their length, and the thickness of the muscle belly --- determines
-force--velocity behaviour and is tracked clinically to monitor atrophy,
-rehabilitation and training adaptation. These quantities are most often measured
-by hand in ImageJ or FIJI, a procedure that is slow and, critically, not
-reliable: for novice raters, within-rater intraclass correlations for manual
-fascicle length have been reported as low as 0.00--0.30, against 0.90--0.99 for
-a semi-automated algorithm \citep{frontiers2025}.
+Muscle architecture describes how fascicles sit inside a muscle: the angle they
+make with the line of pull, how long they are, and how thick the muscle belly
+is. Those three numbers govern force and velocity behaviour, and clinicians
+track them to follow atrophy, rehabilitation and training adaptation.
 
-Deep-learning approaches have addressed this. \citet{cronin2020} trained U-Net
-architectures to segment fascicles and aponeuroses, reporting agreement with
-manual analysis within approximately 2.1~mm in FL. That work was substantially
-extended and packaged as DL\_Track\_US \citep{ritsche2022}, now the standard
-open-source tool in this domain, with reported mean differences against manual
-analysis of $-2.4$~mm in FL, $0.6^{\circ}$ in PA and $-0.6$~mm in MT
+Most of the time they are measured by hand in ImageJ or FIJI. That is slow, and
+it is also unreliable. For novice raters, within-rater agreement on manual
+fascicle length has been reported as low as 0.00 to 0.30, against 0.90 to 0.99
+for a semi-automated algorithm \citep{frontiers2025}. The case for automating
+this is not throughput. It is that the manual measurement does not repeat.
+
+Deep learning has been applied to the problem with some success.
+\citet{cronin2020} trained U-Net models to segment fascicles and aponeuroses and
+reported agreement with manual analysis within about 2.1~mm in FL. That work was
+extended and released as DL\_Track\_US \citep{ritsche2022}, which is now the
+standard open-source tool for this task, with reported mean differences against
+manual analysis of $-2.4$~mm in FL, $0.6^{\circ}$ in PA and $-0.6$~mm in MT
 \citep{ritsche2024}.
 
-These systems share an assumption that limits their deployment: a known
-acquisition. The spatial scale is supplied by the operator, the device is fixed,
-and the image geometry is trusted. We consider the opposite case. The UMUD
-Challenge provides 309 test images as screenshots from six different ultrasound
-systems, with no metadata, no stated scale, and no indication of which device
-produced which image. Everything required to convert pixels into millimetres ---
-and, as we show, the pixel aspect ratio itself --- must be recovered from the
-image.
+These tools share an assumption that limits where they can be used. They expect
+a known acquisition: the operator supplies the scale, the device is fixed, and
+the image geometry can be trusted. The UMUD Challenge sets up the opposite case.
+It provides 309 test images as screenshots from six different ultrasound
+systems, with no metadata, no stated scale, and no record of which machine
+produced which image. Everything needed to turn pixels into millimetres has to
+be recovered from the image, including, as it turns out, the pixel aspect ratio
+itself.
 
-This paper makes two methodological contributions. The first is a device
-normalisation stage that identifies the scanner family, reads the on-screen
-depth ruler, and corrects lateral anisotropy in resampled screenshot exports, a
-correction absent from the reference implementations and one that materially
-alters every measured angle on two of six layouts. The second is a geometric
-analysis of the fascicle-length estimator showing that the conventional form
-inherits a convergence-dependent bias, together with a corrected estimator whose
-calibration transfers across anatomically distinct datasets.
+This paper contributes two things. The first is a device normalisation stage
+that identifies the scanner, reads the on-screen depth ruler, and corrects
+lateral anisotropy in resampled screenshot exports. That correction is absent
+from the reference implementations, and it changes every measured angle on two
+of the six layouts. The second is a geometric result showing that the
+conventional fascicle-length estimator carries a bias that depends on
+aponeurosis convergence, together with a corrected estimator whose calibration
+transfers between muscles.
 
 \section{Methods}
 
 \subsection{Task and data}
 
-For each image, PA (degrees), FL (mm) and MT (mm) are predicted. Performance is
-scored by a normalised mean absolute error,
+For each image the method predicts PA (degrees), FL (mm) and MT (mm). Scoring
+uses a normalised mean absolute error,
 \begin{equation}
 S = \tfrac{1}{3}\left(
 \frac{\mathrm{MAE}_{\mathrm{PA}}}{6^{\circ}} +
 \frac{\mathrm{MAE}_{\mathrm{FL}}}{12\,\mathrm{mm}} +
 \frac{\mathrm{MAE}_{\mathrm{MT}}}{3\,\mathrm{mm}} \right),
 \end{equation}
-with lower values indicating closer agreement. Reference values were produced by
-two raters working in FIJI and averaged. Three of their conventions are relevant
-to reproducing their measurements: scale was taken from the vertical ruler only,
-without aspect correction; MT was measured along vertical lines in image
-coordinates between the inner aponeurosis edges; and FL was a straight-line
-extrapolation of the fascicle between aponeuroses.
+where lower is better. Reference values came from two raters working in FIJI,
+averaged. Three of their conventions matter for reproducing their numbers. They
+took scale from the vertical ruler only, with no aspect correction. They
+measured MT along vertical lines in image coordinates, between the inner edges
+of the aponeuroses. And they measured FL as a straight-line extrapolation of the
+fascicle between the two aponeuroses.
 
-Validation used two externally labelled datasets. The \emph{static benchmark}
-comprises 35 images of gastrocnemius medialis, soleus and vastus lateralis,
+Two externally labelled datasets were available for validation. The static
+benchmark has 35 images of gastrocnemius medialis, soleus and vastus lateralis,
 acquired on four devices and measured independently by seven expert raters
-\citep{umud2024}. The \emph{dynamic sequence} comprises 167 frames of a
-calf-raise, labelled for PA and FL under a different PA convention, and is
-therefore used for FL validation only. Neither originates from the test
-scanners.
+\citep{umud2024}. The dynamic sequence has 167 frames of a calf raise, labelled
+for PA and FL, but under a different PA convention, so I use it for FL only.
+Neither comes from the test scanners, which matters and is discussed later.
 
 \subsection{Device normalisation}
 
-Every ultrasound screenshot carries a depth ruler. For fixed-layout families the
-ruler spacing is constant and was measured once; for the Juniper and Lumify
-families, where depth is operator-adjustable, tick positions are located per
-image by column-intensity profile and the modal spacing taken. This yields
-pixels per millimetre and a crop box isolating the B-mode sector.
+Every ultrasound screenshot carries a depth ruler. For the fixed-layout families
+the ruler spacing never changes and was measured once. For the Juniper and
+Lumify families, where the operator can adjust depth, the ruler has to be read
+per image: I find the tick positions from a column-intensity profile and take
+the modal spacing. That gives pixels per millimetre, plus a crop box isolating
+the B-mode sector from the surrounding interface.
 
-The non-obvious step concerns pixel aspect. A linear-array transducer has a
-fixed physical aperture. Where the exported screenshot displays that aperture
-across a width inconsistent with the depth scale, the image is anisotropically
-resampled and pixels are not square. Both affected families are quantifiable
-from manufacturer specifications: the Juniper 12L3 presents a 51.3~mm aperture
-across approximately 57.5~mm of vertical-ruler units ($R \approx 1.12$), and the
-Lumify L12-4 a 34~mm aperture across approximately 28.6~mm ($R \approx 0.84$).
-The Juniper value has an independent explanation --- 1.125 is exactly the factor
-obtained by stretching a 4:3 export to 3:2 --- consistent with a display-pipeline
-resampling rather than an acquisition property. All probability maps are
-resampled to square physical pixels before geometry is computed.
+The less obvious step is pixel shape. A linear-array transducer has a fixed
+physical aperture. If the exported screenshot shows that aperture across a width
+that does not match the depth scale, the image has been stretched or squeezed
+horizontally and the pixels are no longer square. Both affected families can be
+worked out from manufacturer specifications. The Juniper 12L3 has a 51.3~mm
+aperture but displays it across roughly 57.5~mm of vertical-ruler units, giving
+$R \approx 1.12$. The Lumify L12-4 has a 34~mm aperture displayed across roughly
+28.6~mm, giving $R \approx 0.84$. The Juniper number has an independent
+explanation: 1.125 is exactly what you get stretching a 4:3 export to 3:2, which
+points at the display pipeline rather than the acquisition. I resample all
+probability maps to square physical pixels before computing any geometry.
 
-We note a deliberate tension. The reference raters took scale from the vertical
-ruler \emph{without} aspect correction. A pipeline that corrects anisotropy
-therefore measures the anatomy more faithfully while measuring the label less
-faithfully on those two families. We retain the correction, on the grounds that
-it is physically correct and transferable to data labelled under other
-conventions, and absorb the residual offset into the single FL calibration
-constant of Section~\ref{sec:fl}.
+There is a tension here worth stating plainly. The reference raters took scale
+from the vertical ruler without correcting for aspect. So a pipeline that
+corrects anisotropy measures the anatomy more faithfully but matches the label
+less faithfully on those two families. I kept the correction, because it is
+physically right and because it transfers to data labelled under other
+conventions, and let the residual offset be absorbed by the single FL
+calibration constant described below.
 
 \subsection{Segmentation}
 
-Two U-Net ensembles are trained, one for aponeuroses and one for fascicles, each
-pairing a ResNet-34 \citep{he2016} and an EfficientNet-B3 \citep{tan2019}
-encoder at 512~px with horizontal-flip test-time augmentation. Training used
-BCE~+~Dice loss, AdamW with a one-cycle schedule, mixed precision, and
-augmentation covering flips, affine transforms, contrast and gamma jitter, blur
-and speckle noise. Exact duplicates were removed (fascicle pairs
-$2{,}761 \rightarrow 2{,}091$; aponeurosis pairs $1{,}048 \rightarrow 1{,}029$),
-and fascicle masks were dilated by approximately 3~px before downsampling,
-without which single-pixel-wide structures do not survive the resize.
+I train two U-Net ensembles, one for aponeuroses and one for fascicles. Each
+pairs a ResNet-34 \citep{he2016} encoder with an EfficientNet-B3
+\citep{tan2019} encoder at 512~px, with horizontal-flip test-time augmentation.
+Training used BCE plus Dice loss, AdamW with a one-cycle schedule, mixed
+precision, and augmentation covering flips, affine transforms, contrast and
+gamma jitter, blur and speckle noise.
 
-Ultrasound frames are not independent: consecutive frames of one scan are
-near-identical, and a random image-level partition places them on both sides of
-the split. We therefore partition at the level of scan-level perceptual
-similarity clusters, assigning whole clusters to training or validation.
-Validation Dice was 0.836 (ResNet-34) and 0.846 (EfficientNet-B3) for
-aponeuroses, and 0.568 and 0.577 for fascicles.
+Two preparation steps turned out to be necessary. Exact duplicates were removed,
+taking fascicle pairs from 2{,}761 to 2{,}091 and aponeurosis pairs from 1{,}048
+to 1{,}029. Fascicle masks were dilated by about 3~px before downsampling,
+without which the structures of interest, which are roughly one pixel wide, do
+not survive the resize.
+
+Ultrasound frames are not independent of one another. Consecutive frames from
+one scan look nearly identical, so a random image-level split puts near-copies
+on both sides and the validation score measures memorisation. I therefore group
+images into scan-level clusters by perceptual similarity and assign whole
+clusters to training or validation. Validation Dice was 0.836 (ResNet-34) and
+0.846 (EfficientNet-B3) for aponeuroses, and 0.568 and 0.577 for fascicles.
 
 \subsection{Geometry}
 \label{sec:fl}
 
-Aponeuroses are identified as superficial and deep bands, with collinear
-fragments merged and lines fitted by least squares under MAD-based outlier
+The superficial and deep aponeuroses are identified as bands, with collinear
+fragments merged and lines fitted by least squares with MAD-based outlier
 rejection. MT is measured between inner edges at 25\%, 50\% and 75\% of the
-width, matching the rater convention.
+width, which follows the rater convention.
 
-Fascicle fragments lying strictly between the aponeurosis lines each receive a
-principal-component direction fitted over all constituent pixels. Fragments vote
-by length; the length-weighted median defines the fascicle direction, and
-fragments deviating by more than $8^{\circ}$ are rejected as crossing speckle or
-vasculature. PA is the signed angle between the fascicle direction and the deep
-aponeurosis. A physiological admissible range of $5$--$45^{\circ}$ is applied.
+Fascicle fragments lying strictly between the two aponeurosis lines each get a
+principal-component direction fitted over all their pixels. Fragments vote by
+length, the length-weighted median defines the fascicle direction, and fragments
+more than $8^{\circ}$ off that direction are dropped as crossing speckle or
+vessels. PA is the signed angle between the fascicle direction and the deep
+aponeurosis. I admit a physiological range of 5 to $45^{\circ}$.
 
-For fascicle length, the conventional estimator extends each surviving fragment
-along its own direction to intersections with both aponeurosis lines. This is
-exact when the aponeuroses are parallel. Letting $\gamma$ denote the fascicle
-angle and $h$ the half-angle of convergence between the two aponeuroses, the
-chord so obtained relates to the bisector-referenced estimator by
+Fascicle length is where the geometry gets interesting. The usual estimator
+extends each surviving fragment along its own direction until it meets both
+aponeurosis lines. That is exact when the aponeuroses are parallel. Let $\gamma$
+be the fascicle angle and $h$ the half-angle between the two aponeuroses. Then
 \begin{equation}
 \mathrm{FL}_{\mathrm{frag}}
 = \frac{\mathrm{MT}}{\sin\gamma}\cdot
 \frac{1}{1-\cot^{2}\gamma\,\tan^{2}h},
 \label{eq:fl}
 \end{equation}
-so the two agree only as $h \rightarrow 0$ and diverge as the aponeuroses
-converge. Equation~\eqref{eq:fl} predicts that any convergence-dependent bias in
-$\mathrm{FL}_{\mathrm{frag}}$ should grow with $h$, and therefore differ between
-muscles. Measured against expert labels, $\mathrm{FL}_{\mathrm{frag}}$ reads
-$+8\%$ high on the static benchmark and $+14\%$ on the more strongly converging
-dynamic sequence, whereas the bisector-referenced $\mathrm{FL}_{\mathrm{bis}}$
-reads $+6\%$ and $+5\%$ respectively. Because $\mathrm{FL}_{\mathrm{bis}}$
-carries nearly the same bias on both, a single scalar correction ($\div 1.059$,
-fitted leave-one-out on the static benchmark alone) transfers to the dynamic
-sequence without refitting.
+so the two agree only as $h \rightarrow 0$ and separate as the aponeuroses
+converge. Equation~\eqref{eq:fl} predicts that any convergence-dependent bias
+should grow with $h$ and therefore differ between muscles, which is testable.
+Against expert labels, $\mathrm{FL}_{\mathrm{frag}}$ reads 8\% high on the
+static benchmark and 14\% high on the more strongly converging dynamic sequence.
+Measuring the angle to the bisector of the two aponeuroses instead gives
+$\mathrm{FL}_{\mathrm{bis}}$, which reads 6\% and 5\% high on those same two
+datasets. Because that bias is nearly the same on both, one scalar correction
+($\div 1.059$, fitted leave-one-out on the static benchmark alone) carries over
+to the dynamic sequence without refitting.
 
 \subsection{Post-processing}
 
-Fascicle-length calibration is applied as above. Segmentation failures are
-filled with the scanner-specific rather than global median; values are clipped
-to the stated physiological ranges; and cine runs identified by image similarity
-are smoothed toward their per-run median.
+FL calibration is applied as above. Segmentation failures are filled with the
+scanner-specific median rather than a global one. Values are clipped to the
+stated physiological ranges. Cine runs, found by image similarity, are smoothed
+toward their per-run median.
 
 \subsection{Comparison methods}
 
-The static benchmark distributes published measurements from two automated
-methods --- DL\_Track\_US \citep{ritsche2022} and SMA, an earlier non-trainable
-method --- alongside the seven rater columns. All automated methods are
-therefore scored against an identical consensus on identical images, with no
-re-implementation. Human performance is estimated leave-one-out: each rater is
-scored against the mean of the remaining six, avoiding the optimistic bias that
-arises when a rater is compared against a consensus containing their own
-measurement. We report the median across raters, one rater being a clear
-outlier.
+The static benchmark ships published measurements from two automated methods,
+DL\_Track\_US \citep{ritsche2022} and SMA, an earlier non-trainable method,
+alongside the seven rater columns. That means all three automated methods can be
+scored against the same consensus on the same images, with nothing
+re-implemented by me.
+
+Human performance needs more care. Scoring a rater against a consensus that
+includes their own measurement flatters them, because they are partly being
+compared to themselves. I therefore score each rater leave-one-out, against the
+mean of the other six, and report the median across raters, since one rater is a
+clear outlier.
 
 \section{Results}
 
@@ -245,22 +249,22 @@ outlier.
 \includegraphics[width=0.46\textwidth]{figures/fig1_raw.png}\hfill
 \includegraphics[width=0.46\textwidth]{figures/fig1_annotated.png}
 \caption{A longitudinal B-mode image of vastus lateralis as supplied (left) and
-with structures indicated (right): the superficial and deep aponeuroses, and
+with the structures marked (right): the superficial and deep aponeuroses, and
 individual fascicles between them. The annotation is illustrative and is not
-present in the data. No scale, device identity, or pixel aspect ratio accompanies
+present in the data. No scale, device identity or pixel aspect ratio comes with
 the image.}
 \label{fig:example}
 \end{figure}
 
 Table~\ref{tab:main} and Figure~\ref{fig:comparison} give performance on the
-static benchmark. The method scores 0.196 against the seven-rater consensus,
-compared with 0.331 for DL\_Track\_US, 0.409 for SMA, and a leave-one-out median
-of 0.264 for an individual expert rater. Individual raters span 0.246 to 0.483
-leave-one-out; the corresponding mean is 0.303.
+static benchmark. The method scores 0.196 against the seven-rater consensus.
+DL\_Track\_US scores 0.331 on the same images, SMA scores 0.409, and an
+individual expert rater scores 0.264 by leave-one-out median. Individual raters
+span 0.246 to 0.483 leave-one-out, with a mean of 0.303.
 
 \begin{table}[t]
 \centering
-\caption{Performance on the 35-image static benchmark, all methods scored
+\caption{Performance on the 35-image static benchmark. All methods are scored
 against the same seven-rater consensus. Lower is better.}
 \label{tab:main}
 \begin{tabular}{lcccc}
@@ -269,9 +273,9 @@ Method & PA ($^{\circ}$) & FL (mm) & MT (mm) & Score \\
 \midrule
 SMA & 2.39 & 7.01 & 0.74 & 0.409 \\
 DL\_Track\_US & 1.45 & 3.74 & 1.31 & 0.331 \\
-Single expert (LOO median) & --- & --- & --- & 0.264 \\
+Single expert (LOO median) & n/a & n/a & n/a & 0.264 \\
 \textbf{This method} & \textbf{1.16} & \textbf{2.70} & \textbf{0.51} & \textbf{0.196} \\
-\quad on 31 images without training analogues & --- & --- & --- & 0.203 \\
+\quad on 31 images without training analogues & n/a & n/a & n/a & 0.203 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -280,80 +284,82 @@ Single expert (LOO median) & --- & --- & --- & 0.264 \\
 \centering
 \includegraphics[width=0.82\textwidth]{figures/fig2_comparison.pdf}
 \caption{Error against the seven-rater expert consensus on the static benchmark.
-Lower values indicate closer agreement.}
+Lower values mean closer agreement.}
 \label{fig:comparison}
 \end{figure}
 
-Against DL\_Track\_US the present method is more accurate on all three
-quantities, and the margin is largest in fascicle length (2.70~mm against
-3.74~mm) --- the quantity addressed by Equation~\eqref{eq:fl}. Restricting to 31
-benchmark images screened to exclude near-duplicates of training material gives
-0.203, bounding residual optimism at approximately 3.5\%.
+The method is more accurate than DL\_Track\_US on all three quantities, and the
+margin is largest in fascicle length, 2.70~mm against 3.74~mm. That is the
+quantity Equation~\eqref{eq:fl} addresses, so the geometric argument and the
+measured improvement point at the same place. Restricting to 31 benchmark images
+screened to exclude near-duplicates of training material gives 0.203, which
+bounds the remaining optimism at about 3.5\%.
 
-On the independent dynamic sequence, fascicle-length error is 1.82~mm with the
-calibration constant fitted only on the static benchmark, against 2.54~mm
-uncalibrated. The earlier fragment-intersection estimator gives 6.45~mm and
-3.76~mm respectively. That a constant fitted on one dataset improves a second,
-anatomically distinct dataset supports Equation~\eqref{eq:fl} describing a real
-geometric effect rather than a fitted artefact.
+On the dynamic sequence, fascicle-length error is 1.82~mm with the calibration
+constant fitted only on the static benchmark, against 2.54~mm with no
+calibration. The older fragment-intersection estimator gives 6.45~mm and
+3.76~mm. A constant fitted on one dataset improving a second, anatomically
+different one is the main evidence that Equation~\eqref{eq:fl} describes a real
+geometric effect rather than something fitted.
 
 \section{Discussion}
 
-Two findings merit emphasis. The first is that pixel aspect ratio is not safely
-assumed in screenshot-derived ultrasound data. Where an export resamples
-horizontally, every angle computed in pixel coordinates is biased, and the
-magnitude is substantial: a $12\%$ lateral stretch alters a $20^{\circ}$
-pennation angle by more than $2^{\circ}$, which is larger than the inter-rater
-disagreement reported here. Because the correction derives from published
-aperture specifications, it requires no labelled data and transfers to any
-dataset from the same devices.
+Two things seem worth stating. The first is that pixel aspect ratio should not
+be assumed in screenshot-derived ultrasound data. Where an export resamples
+horizontally, every angle computed in pixel coordinates is biased, and the size
+of that bias is not negligible: a 12\% lateral stretch shifts a $20^{\circ}$
+pennation angle by more than $2^{\circ}$, which is larger than the disagreement
+between the expert raters here. Because the correction comes from published
+aperture specifications, it needs no labelled data and transfers to any dataset
+from the same devices.
 
 The second is that the conventional fascicle-length estimator carries a
 convergence-dependent bias that human raters do not reproduce.
-Equation~\eqref{eq:fl} predicts that this bias should vary between muscles with
-differing aponeurosis convergence, which is what we observe ($+8\%$ versus
-$+14\%$). The practical consequence is that the fragment estimator requires a
-separate calibration per anatomy --- that is, labelled data for every new muscle
---- which defeats the purpose of automation. The bisector form does not.
+Equation~\eqref{eq:fl} predicts that the bias should vary between muscles with
+different aponeurosis convergence, and that is what I observe, 8\% against 14\%.
+The practical consequence is that the fragment estimator needs a separate
+calibration for each anatomy, which means labelled data for every new muscle.
+That defeats the point of automating the measurement. The bisector form does not
+have this problem.
 
-Several limitations qualify these results. Fascicle segmentation remains the
-weakest component (Dice $\approx 0.57$); the geometry stage is deliberately
-robust to this through length-weighted voting and outlier rejection, but a
-stronger fascicle model is the most direct route to improvement. The residual
-calibration constant is empirical: Equation~\eqref{eq:fl} derives the form of
-the bias, not its magnitude, and transfer across two datasets is evidence rather
-than proof. The benchmark comprises 35 images; all figures use leave-one-out,
-but confidence intervals are correspondingly wide and we do not attribute
-precise effect sizes to individual components. The anisotropy correction
-conflicts with the reference labelling convention on two scanner families, as
-set out above. Finally, agreement with a seven-rater consensus is not
-anatomical truth --- no biopsy or phantom standard exists for these images --- and
-raters may share conventions that an automated method can learn to reproduce.
+Several things limit what this shows. Fascicle segmentation is the weakest
+component, with Dice around 0.57. The geometry stage is built to tolerate that
+through length-weighted voting and outlier rejection, but a better fascicle
+model is still the most direct route to a better score. The calibration constant
+is empirical: Equation~\eqref{eq:fl} derives the form of the bias, not its size,
+and transfer across two datasets is evidence rather than proof. The benchmark is
+35 images, so while every figure uses leave-one-out, the confidence intervals
+are wide and I do not attach precise effect sizes to individual components. The
+anisotropy correction conflicts with the reference labelling convention on two
+scanner families, as described above. And agreement with a seven-rater consensus
+is not the same as anatomical truth: there is no biopsy or phantom standard for
+these images, and the raters may share conventions that an automated method can
+learn to copy.
 
 Device normalisation currently handles six screenshot layouts because those six
-were characterised individually; a seventh would require the same treatment.
-Automatic recovery of pixel aspect from image content, rather than from a
-specification lookup, would remove that constraint and is the natural next step.
+were characterised one at a time. A seventh would need the same treatment.
+Recovering pixel aspect from image content, rather than from a specification
+lookup, would remove that constraint, and it is the obvious next step.
 
 \section{Conclusion}
 
-Given only unlabelled ultrasound screenshots from six different devices, a fully
-image-computed pipeline estimates muscle architecture more closely to a
-seven-rater expert consensus (0.196) than the established open-source tool for
-this task (0.331), an earlier automated method (0.409), or an individual expert
-rater (0.264). The two components responsible are derived from device optics and
-from the geometry of the measurement rather than fitted to the data, which is
-why a calibration established on one muscle transfers to another.
+Given only unlabelled ultrasound screenshots from six different machines, a
+fully image-computed pipeline measures muscle architecture closer to a
+seven-rater expert consensus (0.196) than the standard open-source tool for this
+task (0.331), than an earlier automated method (0.409), or than an individual
+expert rater (0.264). The two components doing most of that work come from
+device optics and from the geometry of the measurement rather than from fitting,
+which is why a calibration established on one muscle carries over to another.
 
 \section*{Acknowledgements}
 
 Scanner ruler positions follow the publicly shared analyses ``UMUD Quick and
-Dirty'' (AmbrosM) and ``UMUD Pipeline v2'' (Hanh Tran), re-verified against the
-images used here.
+Dirty'' (AmbrosM) and ``UMUD Pipeline v2'' (Hanh Tran), which I re-checked
+against the images used here.
 
 \section*{Data and code availability}
 
-Evaluation scripts, the model weights, and the split manifests are available at
+Evaluation scripts, model weights and split manifests are at
 \url{https://github.com/Cdowning-PDF/umud-muscle-architecture}. The benchmark
 datasets are distributed by UMUD \citep{umud2024}.
 
@@ -391,7 +397,7 @@ biomedical image segmentation. \emph{Proc. MICCAI}, 234--241.
 Tan, M., Le, Q.V., 2019. EfficientNet: rethinking model scaling for
 convolutional neural networks. \emph{Proc. ICML}, PMLR 97, 6105--6114.
 
-\bibitem[UMUD(2024)]{umud2024}
+\bibitem[UMUD(2026)]{umud2024}
 Ritsche, P., Sarto, F., et al., 2026. UMUD: a web application for easy access to
 musculoskeletal ultrasonography datasets. \emph{BMC Medical Imaging}.
 
